@@ -1,0 +1,28 @@
+body {
+  padding-top: 70px;
+  background-color: #ecf0f1;
+}
+
+/*
+  background-color: #44CC14;
+  background-color: #28770C;
+  background-color: #A20D39;
+*/
+
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+  font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+}
+
+.hr {
+  height: 5px;
+  background-color: #28770C;
+}
+
+footer {
+  height: 160px;
+  background-color: #C9D9B3;
+}
+
+footer p {
+  margin-top: 5%;
+}
