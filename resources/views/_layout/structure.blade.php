@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="dalec">
+    @section('head')
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="dalec">
 
-    <title>@yield('title')</title>
+      <title>@yield('title')</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+      <!-- Bootstrap core CSS -->
+      <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="/css/navbar.css" rel="stylesheet">
+      <!-- Custom styles for this template -->
+      <link href="/css/navbar.css" rel="stylesheet">
 
-    <link href="/css/main.css" rel="stylesheet">
+      <link href="/css/main.css" rel="stylesheet">
+    @show
   </head>
 
   <body>
@@ -35,8 +37,18 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">主页</a></li>
-            <li><a href="#">Link</a></li>
+            <li><a href="/">主页</a></li>
+            @if(Entrust::hasRole('admin'))
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">用户管理 <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/user">用户列表</a></li>
+                  <li><a href="#">添加用户</a></li>
+                  <!--li role="separator" class="divider"></li-->
+                </ul>
+              </li>
+            @endif
+            <!--li><a href="#">Link</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -48,10 +60,16 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">One more separated link</a></li>
               </ul>
-            </li>
+            </li-->
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Link</a></li>
+            <li>
+              <p class="navbar-text"><i>欢迎，<a href="/user/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a></i></p>
+            </li>
+            <li>
+              <a href="/auth/logout">登出</a>
+            </li>
+            <!--li><a href="#">Link</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -61,15 +79,28 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Separated link</a></li>
               </ul>
-            </li>
+            </li-->
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
 
-    @section('content')
+    <div id="content">
+      @section('content')
+      @show
+    </div>
+
+    <footer class="footer navbar-fixed-bottom">
+      <div class="hr">
+      </div>
+      <p class="text-center">
+        作者：131250169&nbsp;&nbsp;顾恒清
+      </p>
+    </footer>
+
+    @section('js')
+      <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+      <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     @show
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>

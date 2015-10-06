@@ -14,9 +14,9 @@
 // 根路由
 Route::get('/', function () {
     if (Auth::user()) {
-        return Redirect::to('home');
+        return view('index');
     }
-    return Redirect::to('auth/login');
+    return redirect('auth/login');
 });
 
 // 认证路由

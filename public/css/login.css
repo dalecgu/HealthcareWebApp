@@ -1,5 +1,5 @@
 body {
-  color: #28770C;
+  /*color: #28770C;*/
   /*background-image: url('/img/background.gif');*/
   /*background-size: 100%;*/
 }
@@ -43,11 +43,12 @@ body {
   margin-top: 15px;
 }
 
-#content .col-sm-6:first-child {
+#left-side {
   border-right: 1px solid;
 }
 
-#content .col-sm-6:nth-child(2) {
+#right-side {
+  margin-left: 20px;
   font-size: larger;
   max-width: 330px;
 }

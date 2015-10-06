@@ -21,42 +21,46 @@
   </head>
 
   <body>
-    <div id="content">
-      <div class="col-sm-6">
-        <form class="form-signin">
-          <h3 class="form-signin-heading">登录</h3>
-          <label for="inputEmail" class="sr-only">邮箱地址</label>
-          <input type="email" id="inputEmail" class="form-control" placeholder="邮箱地址" required autofocus>
-          <label for="inputPassword" class="sr-only">密码</label>
-          <input type="password" id="inputPassword" class="form-control" placeholder="密码" required>
-          <div class="checkbox">
-            <label>
-              <input type="checkbox" id="remember-me" value="remember-me"> <strong>记住我</strong>
-            </label>
-          </div>
-          <button class="btn btn-block btn-success" type="submit">登录</button>
+    <div id="content" class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6" id="left-side">
+          <form class="form-signin" method="post" action="/auth/login">
+            {!! csrf_field() !!}
+
+            <h3 class="form-signin-heading">登录</h3>
+            <label for="inputEmail" class="sr-only">邮箱地址</label>
+            <input type="email" id="inputEmail" name="email" class="form-control" value="{{ old('email') }}" placeholder="邮箱地址" required autofocus>
+            <label for="inputPassword" class="sr-only">密码</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="密码" required>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" id="remember-me" name="remember" value="remember-me"> <strong>记住我</strong>
+              </label>
+            </div>
+            <button class="btn btn-block btn-success" type="submit">登录</button>
+            <p>
+              <a href="">忘记密码？</a>
+            </p>
+          </form>
+        </div>
+        <div class="col-sm-6" id="right-side">
           <p>
-            <a href="">忘记密码？</a>
+            没有账号？<a href="">立即注册</a>
           </p>
-        </form>
-      </div>
-      <div class="col-sm-6">
-        <p>
-          没有账号？<a href="">立即注册</a>
-        </p>
-        <br>
-        <button type="button" class="btn btn-danger btn-block">
-            <i class="fa fa-qq"></i> QQ登录
-        </button>
-        <button type="button" class="btn btn-success btn-block">
-            <i class="fa fa-wechat"></i> 微信登录
-        </button>
-        <button type="button" class="btn btn-warning btn-block">
-            <i class="fa fa-weibo"></i> 微博登录
-        </button>
-        <button type="button" class="btn btn-primary btn-block">
-            <i class="fa fa-facebook"></i> 脸书登录
-        </button>
+          <br>
+          <button type="button" class="btn btn-danger btn-block">
+              <i class="fa fa-qq"></i> QQ登录
+          </button>
+          <button type="button" class="btn btn-success btn-block">
+              <i class="fa fa-wechat"></i> 微信登录
+          </button>
+          <button type="button" class="btn btn-warning btn-block">
+              <i class="fa fa-weibo"></i> 微博登录
+          </button>
+          <button type="button" class="btn btn-primary btn-block">
+              <i class="fa fa-facebook"></i> 脸书登录
+          </button>
+        </div>
       </div>
     </div>
 
