@@ -49,5 +49,15 @@ class UserTableSeeder extends Seeder
         $admin->save();
 
         $admin->attachRole(Role::where('name', '=', 'admin')->first());
+
+        $individual2 = new User();
+        $individual2->name = 'individual2';
+        $individual2->email = 'individual2@example.com';
+        $individual2->password = bcrypt('individual');
+        $individual2->remember_token = str_random(10);
+        $individual2->save();
+
+        $individual2->attachRole(Role::where('name', '=', 'individual')->first());
+
     }
 }

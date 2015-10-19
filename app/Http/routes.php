@@ -15,6 +15,7 @@
 Route::get('/', function () {
     if (Auth::user()) {
         return view('index');
+        echo Auth::user()->friends;
     }
     return redirect('auth/login');
 });
