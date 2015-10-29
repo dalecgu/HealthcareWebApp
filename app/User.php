@@ -49,4 +49,34 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany('App\Friend', 'user_id', 'id');
     }
+
+    public function coach()
+    {
+        return $this->hasOne('App\UserCoach', 'user_id', 'id');
+    }
+
+    public function doctor()
+    {
+        return $this->hasOne('App\UserDoctor', 'user_id', 'id');
+    }
+
+    public function moments()
+    {
+        return $this->hasMany('App\Moment', 'user_id', 'id');
+    }
+
+    public function activities()
+    {
+        return $this->belongsToMany('App\Activity', 'user_activities', 'user_id', 'activity_id');
+    }
+
+    public function groups()
+    {
+        return $this->belongsToMany('App\Group', 'user_groups', 'user_id', 'group_id');
+    }
+
+    public function advices()
+    {
+        return $this->hasMany('App\Advice', 'user_id', 'id');
+    }
 }

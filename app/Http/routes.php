@@ -15,7 +15,6 @@
 Route::get('/', function () {
     if (Auth::user()) {
         return view('index');
-        echo Auth::user()->friends;
     }
     return redirect('auth/login');
 });
@@ -31,3 +30,13 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 // 用户管理路由
 Entrust::routeNeedsRole('user', 'admin');
 Route::resource('user', 'User\UserController');
+
+// 动态管理路由
+Entrust::routeNeedsRole('user', 'individual');
+Route::resource('moment', 'Moment\MomentController');
+
+// 兴趣组管理路由
+Route::resource('group', 'Group\GroupController');
+
+// 主题管理路由
+Route::resource('topic', 'Topic\TopicController');

@@ -13,7 +13,7 @@ class CreateIndividualInfoTable extends Migration
     public function up()
     {
         Schema::create('individual_info', function (Blueprint $table) {
-            $table->integer('id');
+            $table->unsignedInteger('id');
             $table->string('nickname');
             $table->string('gendor');
             $table->integer('age');
