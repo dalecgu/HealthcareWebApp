@@ -355,6 +355,20 @@
             </nav>
             <div class="cd-list-content">
                 <ul class="cd-list">
+                    @foreach(App\User::all()->filter(function($item) { return $item->hasRole('coach'); }) as $coach)
+                        <li>
+                            <img src="/image/default_head.png">
+
+                            <div class="cd-detail">
+                                <a href="#" class="cd-name">{{ $coach->info->nickname }}</a>
+
+                                <p class="cd-info fa fa-info-circle">{{ $coach->info->company }}</p>
+
+                                <p class="cd-liking fa fa-heart">{{ $coach->customers->count() }}</p>
+                            </div>
+                            <a href="#" class="to-rank-detail fa fa-plus">添加</a>
+                        </li>
+                    @endforeach
                     <li>
                         <img src="/image/default_head.png">
 
