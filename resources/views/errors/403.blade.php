@@ -7,12 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="dalec">
 
-    <title>健康助手|登录</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="/css/main.css" rel="stylesheet">
+    <title>无权限</title>
   </head>
 
   <body>
@@ -26,20 +21,9 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <p class="text-center"><a class="btn btn-success" href="/auth/login" role="button">登录页</a></p>
+          <p class="text-center"><a class="btn btn-success" href="/" role="button">首页</a></p>
         </div>
       </div>
     </div>
-
-    <footer class="footer navbar-fixed-bottom">
-      <div class="hr">
-      </div>
-      <p class="text-center">
-        作者：131250169&nbsp;&nbsp;顾恒清
-      </p>
-    </footer>
-
-    <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>

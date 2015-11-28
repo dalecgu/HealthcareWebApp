@@ -1,0 +1,109 @@
+/*---------------- Activity List Style -----------------*/
+.activity-list {
+    width: 100%;
+    height: 35em;
+}
+
+.activity-list li {
+    width: 100%;
+    height: 6.5em;
+    box-sizing: content-box;
+    border-radius: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    background: white;
+    margin: 0;
+    transition: all 0.3s linear;
+}
+
+.activity-list li:hover {
+    transform: scale(1.03);
+    margin: 10px 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.activity-list li .activity-cover {
+    width: 11em;
+    height: 6.5em;
+    float: left;
+    border-radius: 3px 0 0 3px;
+}
+
+.activity-list li .activity-info {
+    float: left;
+    width: 23em;
+    height: 6.5em;
+    padding: 0.25em 1em;
+}
+
+.activity-list li .activity-info .activity-name {
+    font-size: 1.2em;
+    line-height: 1.67em;
+    color: #62a0ff;
+}
+
+.activity-list li .activity-info .activity-time {
+    font-size: 1em;
+    line-height: 2em;
+    color: black;
+}
+
+.activity-list li .activity-info .activity-intro {
+    font-size: 1em;
+    line-height: 2em;
+    color: black;
+}
+
+
+.activity-list li .activity-status {
+    float: right;
+    width: 9em;
+    height: 6.5em;
+    background: #3dcdd4;
+    text-align: center;
+    border-radius: 0 3px 3px 0;
+}
+
+.activity-list li .activity-status .activity-progress {
+    color: #cfcfcf;
+    font-size: 1em;
+    line-height: 3em;
+}
+
+.activity-list li .activity-status .activity-member-num {
+    color: white;
+    font-size: 1em;
+    line-height: 3.5em;
+}
+
+
+
+/*----------- Page Switcher Style -------------*/
+
+.page-switcher {
+    width: 100%;
+    height: 2em;
+    text-align: right;
+    margin-top: 0.5em;
+}
+
+.page-switcher li {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    margin: 0 0.1em;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 2em;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.page-switcher li.selected {
+    background: #62a0ff;
+    color: white;
+}
+
+.page-switcher li.disable {
+    cursor: default;
+}

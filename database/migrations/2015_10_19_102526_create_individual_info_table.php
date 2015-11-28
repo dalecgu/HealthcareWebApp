@@ -15,12 +15,13 @@ class CreateIndividualInfoTable extends Migration
         Schema::create('individual_info', function (Blueprint $table) {
             $table->unsignedInteger('id');
             $table->string('nickname');
+            $table->string('truename');
             $table->string('gendor');
             $table->integer('age');
             $table->string('birthday');
             $table->string('location');
-            $table->string('hometown');
-            $table->string('occupation');
+            $table->string('email');
+            $table->string('qq');
             $table->string('description');
             $table->timestamps();
 

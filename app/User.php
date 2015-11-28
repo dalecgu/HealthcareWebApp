@@ -37,6 +37,9 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
+    const ONLINE = "在线";
+    const OFFLINE = "离线";
+
     public function info()
     {
         if ($this->hasRole('individual')) {
@@ -52,12 +55,18 @@ class User extends Model implements AuthenticatableContract,
 
     public function coach()
     {
-        return $this->hasOne('App\UserCoach', 'user_id', 'id');
+        if ($this->hasRole('individual')) {
+            return $this->hasOne('App\UserCoach', 'user_id', 'id');
+        }
+        return [];
     }
 
     public function doctor()
     {
-        return $this->hasOne('App\UserDoctor', 'user_id', 'id');
+        if ($this->hasRole('individual')) {
+            return $this->hasOne('App\UserDoctor', 'user_id', 'id');
+        }
+        return [];
     }
 
     public function moments()
@@ -78,5 +87,16 @@ class User extends Model implements AuthenticatableContract,
     public function advices()
     {
         return $this->hasMany('App\Advice', 'user_id', 'id');
+    }
+
+    public function customers()
+    {
+        if ($this->hasRole('coach')) {
+            return $this->hasOne('App\UserCoach', 'coach_id', 'id');
+        }
+        if ($this->hasRole('doctor')) {
+            return $this->hasOne('App\UserDoctor', 'doctor_id', 'id');
+        }
+        return [];
     }
 }

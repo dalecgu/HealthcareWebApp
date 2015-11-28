@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Role;
+use App\IndividualInfo;
+use Input;
 use Validator;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -58,10 +62,43 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        Input::flash();
+
+        $name = $data['name'];
+        $email = $data['email'];
+        $password = bcrypt($data['password']);
+        $errors = array();
+        if (User::all()->where('name', $name)->count()>0) {
+            array_push($errors, AdminController::ERROR_EXIST_USERNAME);
+        }
+        if (User::all()->where('email', $email)->count()>0) {
+            array_push($errors, AdminController::ERROR_EXIST_EMAIL);
+        }
+        if (count($errors)>0) {
+            return view('auth.login', ['errors' => $errors]);
+        }
+
+        $individual = new User();
+        $individual->name = $name;
+        $individual->email = $email;
+        $individual->password = bcrypt($password);
+        $individual->status = User::OFFLINE;
+        $individual->save();
+
+        $individual->attachRole(Role::where('name', '=', 'individual')->first());
+
+        $individual_info = new IndividualInfo();
+        $individual_info->id = $individual->id;
+        $individual_info->nickname = $name;
+        $individual_info->truename = '';
+        $individual_info->gendor = '';
+        $individual_info->age = 0;
+        $individual_info->birthday = '';
+        $individual_info->location = '';
+        $individual_info->email = $individual->email;
+        $individual_info->qq = '';
+        $individual_info->description = '';
+        $individual_info->save();
+        return $individual;
     }
 }

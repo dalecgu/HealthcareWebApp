@@ -18,7 +18,7 @@ class UserTableSeeder extends Seeder
         $individual->name = 'individual';
         $individual->email = 'individual@example.com';
         $individual->password = bcrypt('individual');
-        $individual->remember_token = str_random(10);
+        $individual->status = App\User::OFFLINE;
         $individual->save();
 
         $individual->attachRole(Role::where('name', '=', 'individual')->first());
@@ -27,7 +27,7 @@ class UserTableSeeder extends Seeder
         $coach->name = 'coach';
         $coach->email = 'coach@example.com';
         $coach->password = bcrypt('coach');
-        $coach->remember_token = str_random(10);
+        $coach->status = App\User::OFFLINE;
         $coach->save();
 
         $coach->attachRole(Role::where('name', '=', 'coach')->first());
@@ -36,7 +36,7 @@ class UserTableSeeder extends Seeder
         $doctor->name = 'doctor';
         $doctor->email = 'doctor@example.com';
         $doctor->password = bcrypt('doctor');
-        $doctor->remember_token = str_random(10);
+        $doctor->status = App\User::OFFLINE;
         $doctor->save();
 
         $doctor->attachRole(Role::where('name', '=', 'doctor')->first());
@@ -45,7 +45,7 @@ class UserTableSeeder extends Seeder
         $admin->name = 'admin';
         $admin->email = 'admin@example.com';
         $admin->password = bcrypt('admin');
-        $admin->remember_token = str_random(10);
+        $admin->status = App\User::OFFLINE;
         $admin->save();
 
         $admin->attachRole(Role::where('name', '=', 'admin')->first());
@@ -54,7 +54,7 @@ class UserTableSeeder extends Seeder
         $individual2->name = 'individual2';
         $individual2->email = 'individual2@example.com';
         $individual2->password = bcrypt('individual');
-        $individual2->remember_token = str_random(10);
+        $individual2->status = App\User::OFFLINE;
         $individual2->save();
 
         $individual2->attachRole(Role::where('name', '=', 'individual')->first());

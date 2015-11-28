@@ -1,0 +1,356 @@
+/*--------------- Main Style ----------------*/
+.right.column {
+    float: right;
+    width: 20em;
+    height: auto;
+}
+
+.center.column {
+    height: auto;
+    margin-right: 21.5em;
+}
+
+.module {
+    width: 100%;
+    height: auto;
+    background: white;
+    border-radius: 3px;
+    margin-bottom: 1em;
+    transition: all 0.3s linear;
+}
+
+.module:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.tmp {
+    height: 15em;
+    padding: 6em;
+    text-align: center;
+}
+
+/*-------------------- Release Style ---------------*/
+.release-nav {
+    width: 100%;
+    height: 3em;
+    border-bottom: 1px solid #b5b5b5;
+    padding: 0 1em;
+}
+
+.release-nav a {
+    font-size: 0.8em;
+    line-height: 3.6em;
+    color: #415e9c;
+    margin-right: 1.5em;
+    font-weight: bold;
+    position: relative;
+}
+
+.release-nav .fa-camera {
+    position: relative;
+}
+
+.release-nav .fa-camera input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+.tab-current:after,
+.tab-current:before {
+    content: "";
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    border: solid transparent;
+}
+
+.tab-current:after {
+    margin-left: -8px;
+    border-width: 8px;
+    border-bottom-color: white;
+}
+
+.tab-current:before {
+    margin-left: -9px;
+    border-width: 9px;
+    border-bottom-color: #b5b5b5;
+}
+
+.release-nav a:before {
+    margin-right: 0.8em;
+}
+
+.release-words {
+    width: 100%;
+    height: 3em;
+    padding: 0.4em 0;
+    overflow: hidden;
+}
+
+.release-words textarea {
+    width: 37em;
+    height: 100%;
+    resize: none;
+    padding: 0.3em 1em;
+    outline: none;
+    border: none;
+    font-size: 0.8em;
+}
+
+.release-words input[type="submit"] {
+    width: 3em;
+    height: 100%;
+    border: none;
+    vertical-align: top;
+    color: #415e9c;
+    background: transparent;
+    outline: none;
+    font-size: 1em;
+    line-height: 2.5em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s linear;
+}
+
+.release-words input[type="submit"]:hover {
+    color: #62a0ff;
+}
+
+.img-preview {
+    width: 100%;
+    height: auto;
+    padding: 1em;
+    display: none;
+    overflow: hidden;
+    border: 1px solid #b5b5b5;
+}
+
+.img-preview-item {
+    width: 15em;
+    height: 12em;
+    margin: 0.3em;
+    overflow: hidden;
+    float: left;
+    position: relative;
+}
+
+.img-preview-item a.fa-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    width: 30px;
+    height: 30px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    line-height: 30px;
+}
+
+/*--------------- exercise ranking Style ----------------*/
+.exercise-ranking {
+    width: 100%;
+    height: 14em;
+    position: relative;
+}
+
+.exercise-ranking nav {
+    width: 100%;
+    height: 2em;
+    padding: 0 1em 0 0.5em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.exercise-ranking nav a {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.8em;
+    line-height: 2.5em;
+    padding: 0 0.5em;
+    font-weight: bold;
+}
+
+.exercise-ranking nav a.chosen {
+    color: #415e9c;
+}
+
+.exercise-ranking nav a:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.exercise-ranking .rank {
+    width: 100%;
+    height: 11em;
+    position: absolute;
+    top: 2em;
+    left: 0;
+    padding: 0 1em;
+    background-color: white;
+    z-index: 1;
+}
+
+.exercise-ranking .rank.today {
+    z-index: 2;
+}
+
+.rank ol {
+    width: 100%;
+    height: 10em;
+    margin-top: 0.5em;
+    overflow: scroll;
+}
+
+.rank ol li {
+    width: 100%;
+    height: 3em;
+    margin-bottom: 0.5em;
+}
+
+.rank-head {
+    float: left;
+    width: 2.5em;
+    height: 2.5em;
+    margin: 0.25em 1em 0.25em 0;
+    position: relative;
+}
+
+.rank-detail {
+    width: 9em;
+    height: 3em;
+    float: left;
+}
+
+.to-rank-detail {
+    float: left;
+}
+
+.rank-head img {
+    width: 3em;
+    height: 3em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -2;
+}
+
+.rank-head span:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 0;
+    height: 0;
+    font-size: 0.5em;
+    border-top: 3em solid lightskyblue;
+    border-right: 3em solid transparent;
+}
+
+.rank-head span {
+    color: white;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1em;
+    width: 1em;
+    height: 1em;
+    text-align: center;
+}
+
+.rank li:nth-of-type(1) .rank-head span:before {
+    border-top: 3em solid rgb(255, 45, 133);
+}
+
+.rank li:nth-of-type(2) .rank-head span:before {
+    border-top: 3em solid rgb(255, 99, 87);
+}
+
+.rank li:nth-of-type(3) .rank-head span:before {
+    border-top: 3em solid rgb(255, 210, 126);
+}
+
+
+
+.rank-detail .rank-name {
+    font-size: 0.8em;
+    line-height: 2em;
+}
+
+.rank-detail .rank-score {
+    font-size: 1em;
+    line-height: 1em;
+}
+
+.rank-detail .rank-score:before {
+    margin-right: 0.5em;
+    color: #62a0ff;
+}
+
+.to-rank-detail {
+    font-size: 0.8em;
+    line-height: 2em;
+    padding: 0 1.2em;
+    margin: 0.7em 0;
+    border-radius: 2px;
+    background-color: #415e9c;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.to-rank-detail:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+
+/*--------------- Exercise Count And Analyze Style --------------*/
+.exercise-count-analyze {
+    width: 100%;
+    height: 20em;
+    position: relative;
+}
+
+.exercise-count-analyze nav {
+    width: 100%;
+    height: 2em;
+    padding: 0 1em 0 0.5em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.exercise-count-analyze nav a {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.8em;
+    line-height: 2.5em;
+    padding: 0 0.5em;
+    font-weight: bold;
+}
+
+.exercise-count-analyze nav a.chosen {
+    color: #415e9c;
+}
+
+.exercise-count-analyze nav a:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.exercise-count-analyze .chart {
+    width: 100%;
+    height: 18em;
+    position: absolute;
+    top: 2em;
+    left: 0;
+    background-color: white;
+    z-index: 1;
+}
+
+.exercise-count-analyze .chart:nth-of-type(1) {
+    z-index: 2;
+}

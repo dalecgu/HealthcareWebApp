@@ -1,0 +1,808 @@
+/*--------------- Main Style ----------------*/
+.right.column {
+    float: left;
+    width: 20em;
+    height: auto;
+}
+
+.center.column {
+    height: auto;
+    margin-left: 21.5em;
+    position: relative;
+}
+
+.module {
+    width: 100%;
+    height: auto;
+    background: white;
+    border-radius: 3px;
+    margin-bottom: 1em;
+    transition: all 0.3s linear;
+}
+
+.module:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.tmp1 {
+    height: 15em;
+    padding: 8em;
+    text-align: center;
+}
+
+/*------------------ Window Style ------------------*/
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    height: 200em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+
+/*--------------- Layoff CD Window Style ------------------*/
+.layoff-cd-window {
+    width: 20em;
+    height: 10em;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: white;
+    border-radius: 0 0 4px 4px;
+    text-align: center;
+    z-index: 999;
+    display: none;
+}
+
+
+.layoff-cd-window  .fa-question-circle {
+    font-size: 1em;
+    line-height: 1.2em;
+    margin: 1.2em 0 1em;
+}
+
+.layoff-cd-window .fa-question-circle:before {
+    display: block;
+    font-size: 3em;
+    line-height: 1.2em;
+    color: #415e9c;
+}
+
+.layoff-cd-window .layoff-cd-choice {
+    width: 100%;
+    height: 3em;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.layoff-cd-window .layoff-cd-choice a {
+    font-size: 0.8em;
+    line-height: 4em;
+    padding: 0.5em 1.5em;
+    border-radius: 2px;
+    background-color: #415e9c;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    margin: 0 1em;
+    position: relative;
+}
+
+.layoff-cd-window .layoff-cd-choice a:hover {
+    top: -1px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/*--------------- CD List Window Style -----------------*/
+.cd-list-window {
+    width: 30em;
+    height: 29em;
+    position: absolute;
+    top: 10em;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: white;
+    border-radius: 4px;
+    z-index: 999;
+    display: none;
+}
+
+.cd-list-window .cd-list-panel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.cd-list-window .cd-info-panel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/*--------------- CD List Panel Style -----------------*/
+
+.cd-list-panel .cd-list-panel {
+    background: white;
+}
+
+.cd-list-window .cd-list-panel nav {
+    background-color: #415e9c;
+    width: 100%;
+    height: 2em;
+}
+
+.cd-list-window .cd-list-panel nav .search{
+    float: left;
+    width: 20em;
+    height: 2em;
+    position: relative;
+}
+
+.cd-list-window .cd-list-panel nav .search .search-input,
+.cd-list-window .cd-list-panel nav .search .search-submit,
+.cd-list-window .cd-list-panel nav .search .fa-search {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.cd-list-window .cd-list-panel nav .search .search-submit,
+.cd-list-window .cd-list-panel nav .search .fa-search{
+    width: 2em;
+    height: 2em;
+    cursor: pointer;
+}
+
+.cd-list-window .cd-list-panel nav .search .fa-search {
+    font-size: 1em;
+    line-height: 2em;
+    text-align: center;
+    color: grey;
+}
+
+.cd-list-window .cd-list-panel nav .search .search-submit {
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.cd-list-window .cd-list-panel nav .search .search-input {
+    width: 100%;
+    height: 100%;
+    padding: 5px 5px 5px 35px;
+    outline: none;
+}
+
+.cd-list-window .cd-list-panel .fa-close {
+    float: right;
+    color: white;
+    margin: 5px 5px 0 0;
+}
+
+
+.cd-list-window .cd-list-panel .cd-list-content {
+    width: 100%;
+    height: 27em;
+    padding: 1em;
+    background-color: white;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li {
+    width: 100%;
+    height: 5em;
+    padding: 0.5em;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li img {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    float: left;
+    margin-right: 1em;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li .cd-detail {
+    float: left;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li .cd-detail p,
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li .cd-detail a {
+    display: block;
+    font-size: 0.8em;
+    line-height: 1.6875em;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li .cd-detail p.fa:before {
+    margin-right: 0.3em;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li .cd-detail p.fa-info-circle:before {
+    color: #456eb0;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li .cd-detail p.fa-heart:before {
+    color: deeppink;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li .fa-plus {
+    float: right;
+    font-size: 0.8em;
+    line-height: 1.125em;
+    padding: 0.5em 1.5em;
+    border-radius: 2px;
+    background-color: #415e9c;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transition: all 0.3s linear;
+}
+
+.cd-list-window .cd-list-panel .cd-list-content .cd-list li .fa-plus:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/*--------------- CD Info Panel Style -----------------*/
+.cd-list-window .cd-info-panel {
+    background: linear-gradient(to bottom, #415e9c 10em, white 10em);
+    position: relative;
+}
+
+.cd-list-window .cd-info-panel.unvisible {
+    display: none;
+}
+
+.cd-list-window .cd-info-panel .back {
+    color: white;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.cd-list-window .cd-info-panel img {
+    border-radius: 50%;
+    width: 6em;
+    height: 6em;
+    position: absolute;
+    top: 7em;
+    left: 3em;
+}
+
+.cd-list-window .cd-info-panel .fa-plus {
+    float: right;
+    font-size: 0.8em;
+    line-height: 1.125em;
+    padding: 0.5em 1.5em;
+    border-radius: 2px;
+    background-color: deeppink;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 10em;
+    right: 2em;
+    transition: all 0.3s linear;
+}
+
+.cd-list-window .cd-info-panel .fa-plus:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.cd-list-window .cd-info-panel .brief-info {
+    width: 16em;
+    height: 6em;
+    position: absolute;
+    left: 11em;
+    top: 8em;
+}
+
+.cd-list-window .cd-info-panel .brief-info .nickname {
+    font-size: 1em;
+    line-height: 2em;
+    color: white;
+}
+
+.cd-list-window .cd-info-panel .brief-info .company {
+    display: block;
+    font-size: 0.8em;
+    line-height: 2em;
+}
+
+.cd-list-window .cd-info-panel .brief-info .company:before {
+    margin-right: 0.3em;
+    color: #415e9c;
+}
+
+.cd-list-window .cd-info-panel .brief-info .liking {
+    font-size: 0.8em;
+    line-height: 2em;
+}
+
+.cd-list-window .cd-info-panel .brief-info .liking:before {
+    margin-right: 0.3em;
+    color: deeppink;
+}
+
+
+.cd-list-window .cd-info-panel .detail-info {
+    width: 20em;
+    height: 12em;
+    position: absolute;
+    top: 15em;
+    left: 3em;
+}
+
+.cd-list-window .cd-info-panel .detail-info ul {
+    width: 100%;
+    height: 100%;
+}
+
+.cd-list-window .cd-info-panel .detail-info li {
+    width: 100%;
+    height: 1.5em;
+}
+
+.cd-list-window .cd-info-panel .detail-info ul .item-title {
+    float: left;
+    width: 5em;
+    font-size: 0.8em;
+    line-height: 1.6875em;
+
+}
+
+.cd-list-window .cd-info-panel .detail-info ul .item-value {
+    float: left;
+    width: 15em;
+    font-size: 0.8em;
+    line-height: 1.6875em;
+}
+
+
+
+/*------------------------------------*/
+.my-release-panel,
+.personal-cd,
+.personal-profile {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.my-release-panel {
+    display: block;
+}
+
+/* ---------------- Profile Head Info Style ---------------*/
+.profile-head-info {
+    height: 12em;
+    background: linear-gradient(to bottom, #415e9c 60%, white 60%);
+    padding: 3em 2em;
+}
+
+.profile-head-info img {
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    margin: 1.8em 1em 0 0;
+    float: left;
+}
+
+.profile-head-info h3 {
+    float: left;
+    font-size: 1em;
+    line-height: 1.2em;
+    margin-top: 4.5em;
+}
+
+.profile-head-info h3 span {
+    display: block;
+    font-size: 0.7em;
+    color: #a0a0a0;
+}
+
+/*--------------- Personal CD Intro Style ----------------*/
+.personal-cd-intro {
+    width: 100%;
+    height: 13em;
+    position: relative;
+}
+
+.personal-cd-intro nav {
+    width: 100%;
+    height: 2em;
+    padding: 0 1em 0 0.5em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.personal-cd-intro nav a {
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 0.8em;
+    line-height: 2.5em;
+    padding: 0 0.5em;
+    font-weight: bold;
+}
+
+.personal-cd-intro nav a.chosen {
+    color: #415e9c;
+}
+
+.personal-cd-intro nav a:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.personal-cd-intro .cd-panel {
+    width: 100%;
+    height: 11em;
+    position: absolute;
+    top: 2em;
+    left: 0;
+    padding: 2em 1em;
+    background-color: white;
+    z-index: 1;
+}
+
+.personal-cd-intro .cd-panel .unvisible {
+    display: none;
+}
+
+.personal-cd-intro #my-coach-panel {
+    z-index: 2;
+}
+
+.personal-cd-intro .cd-panel .none p {
+    font-size: 0.8em;
+}
+
+.personal-cd-intro .cd-panel .normal img {
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    margin-right: 1em;
+}
+
+.personal-cd-intro .intro {
+    display: inline-block;
+    width: 11em;
+    height: 5em;
+    font-size: 1em;
+    line-height: 1.2em;
+    vertical-align: top;
+}
+
+.personal-cd-intro .intro h3 {
+    font-size: 1em;
+}
+
+.personal-cd-intro .intro p {
+    width: 100%;
+    font-size: 0.8em;
+    word-break:break-all;
+}
+
+.personal-cd-intro .my-cd-nav{
+    width: 100%;
+    height: 3em;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.personal-cd-intro .my-cd-nav a {
+    font-size: 0.8em;
+    line-height: 3.375em;
+    padding: 0.5em 1.5em;
+    border-radius: 2px;
+    background-color: #415e9c;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+    transition: all 0.3s linear;
+}
+
+.personal-cd-intro .my-cd-nav a:hover {
+    top: -1px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.personal-cd-intro .my-cd-nav a:first-child {
+    margin-right: 2em;
+}
+
+
+/*------------------- Profile Completion -------------------*/
+.profile-completion {
+    width: 100%;
+    height: 8em;
+    position: relative;
+}
+
+.profile-completion h3 {
+    font-size: 0.8em;
+    line-height: 2.5em;
+    padding: 0 1em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.profile-completion .completion-content {
+    width: 16em;
+    height: auto;
+    top: 3em;
+    left: 1em;
+    position: absolute;
+}
+
+.profile-completion .completion-percent-base {
+    width: 100%;
+    height: 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    background-color: #cbcbcb;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.profile-completion .completion-percent {
+    height: 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 8px;
+    background-color: #415e9c;
+}
+
+.profile-completion .completion-label {
+    position: absolute;
+    top: 4em;
+    right: 1em;
+    font-size: 0.8em;
+    line-height: 1.125em;
+    color: #415e9c;
+}
+
+.profile-completion-nav {
+    width: 100%;
+    height: 3em;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.profile-completion .to-complete-profile {
+    font-size: 0.8em;
+    line-height: 3.375em;
+    padding: 0.5em 1.5em;
+    border-radius: 2px;
+    background-color: #415e9c;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+.profile-completion .to-complete-profile:hover {
+    bottom: 11px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+/*------------------- Personal Awards Style ---------------------*/
+.personal-awards {
+    width: 100%;
+    height: 7em;
+}
+
+.personal-awards h3 {
+    font-size: 0.8em;
+    line-height: 2.5em;
+    padding: 0 1em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.personal-awards .award-list {
+    width: 100%;
+    height: 10em;
+    overflow: scroll;
+    padding: 1em;
+}
+
+.personal-awards .award-list li {
+    display: inline-block;
+    width: 3em;
+    height: 3em;
+}
+
+.personal-awards .award-list li img {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+/*------------------ Profile Check Panel Style -------------------*/
+.profile-check-panel {
+    width: 100%;
+    height: auto;
+    padding: 1em;
+}
+
+.basic-profile-info,
+.contact-info {
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.pf-head {
+    width: 100%;
+    height: 2em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.pf-head .pf-head-title {
+    font-size: 1em;
+    line-height: 2em;
+    float: left;
+}
+
+.pf-head .pf-head-edit {
+    font-size: 0.8em;
+    line-height: 2em;
+    padding: 0 1.2em;
+    border-radius: 2px;
+    background-color: #415e9c;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    float: right;
+}
+
+.pf-items {
+    width: 100%;
+    margin-top: 1em;
+}
+
+.pf-items li {
+    width: 100%;
+    height: 2em;
+    margin: 0.5em;
+}
+
+.pf-items li .pf-item-title {
+    font-size: 0.8em;
+    line-height: 2.5em;
+    float: left;
+    width: 5em;
+    text-align: right;
+    margin-right: 3em;
+    font-weight: 100;
+    color: gray;
+}
+
+.pf-items li .pf-item-value {
+    font-size: 0.8em;
+    line-height: 2.5em;
+    float: left;
+}
+
+.pf-items li .pf-item-value.area {
+    width: 28em;
+}
+
+.pf-items li .pf-item-editable {
+    font-size: 0.8em;
+    float: left;
+    display: none;
+}
+
+.pf-items li input.pf-item-editable{
+    background-color: white;
+    padding: 0.5em 0.2em;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 20em;
+}
+
+.pf-items li .pf-item-editable select{
+    height: 1.8em;
+    margin-top: 0.3em;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+
+
+.pf-items li textarea.pf-item-editable {
+    width: 28em;
+    height: 3em;
+    resize: none;
+    background-color: white;
+    padding: 0.5em 0.2em;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+
+/*----------------- CD Chat Panel Style --------------------*/
+.cd-chat-panel {
+    width: 100%;
+    height: 35em;
+}
+
+.cd-chat-panel .chat-header {
+    width: 100%;
+    height: 3em;
+    background: white;
+    box-shadow: 0 1px 2px #a0a0a0;
+    padding: 0 1em;
+}
+
+.cd-chat-panel .chat-content {
+    width: 100%;
+    height: 32em;
+}
+
+.chat-header .name {
+    font-size: 1em;
+    line-height: 3em;
+    font-weight: bold;
+}
+
+.cd-chat-panel .chat-history {
+    width: 100%;
+    height: 22.5em;
+    margin-top: 0.5em;
+    background: white;
+}
+
+.cd-chat-panel .chat-input {
+    width: 100%;
+    height: 9em;
+    background: white;
+    box-shadow: 0 -1px 2px #a0a0a0;
+}
+
+.chat-input nav {
+    height: 2em;
+    width: 100%;
+    padding: 0 1em;
+}
+
+.chat-input nav a {
+    font-size: 1em;
+    line-height: 2em;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.chat-input nav a:not(:last-child) {
+    margin-right: 1em;
+}
+
+.chat-input textarea {
+    width: 100%;
+    height: 5.5em;
+    padding: 0 1em;
+    font-size: 1em;
+    outline: none;
+    border: none;
+    resize: none;
+}
+
+

@@ -1,0 +1,249 @@
+/*------------- Basic Style ---------------*/
+*, *:after, *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body, html {
+    font-size: 100%;
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*Clearfix hack by Nicolas Gallagher: http://nicolasgallagher.com/micro-clearfix-hack/ */
+.clearfix:before, .clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+body {
+    background-color: #e0e0e0;
+    font-family: sans-serif;
+}
+
+.container {
+    height: 100%;
+}
+
+
+/*------------ Header Style ------------*/
+.container > header {
+    height: 3em;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #dc4437;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+}
+
+.cbp-tm-menu {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.cbp-tm-menu > li {
+    width: 6em;
+    display: inline-block;
+    position: relative;
+    padding: 0 1em;
+}
+
+.cbp-tm-menu > li:nth-of-type(1) {
+    margin-left: 1em;
+}
+
+.cbp-tm-menu > li:nth-of-type(n+2):hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.cbp-tm-menu > li > a {
+    line-height: 3em;
+    font-size: 1em;
+    color: white;
+    display: block;
+    font-weight: bold;
+}
+
+.cbp-tm-menu > li > a:before {
+    margin-right: 0.6em;
+    font-weight: normal;
+}
+
+.cbp-tm-submenu {
+    position: absolute;
+    display: block;
+    visibility: hidden;
+    background: #bf3d30;
+    opacity: 0;
+    padding: 0;
+    transition: all 0.3s linear;
+}
+
+.cbp-tm-show.cbp-tm-submenu {
+    width: 8em;
+    margin-left: -1em;
+    visibility: visible;
+    opacity: 1;
+}
+
+.cbp-tm-submenu > li {
+    width: 100%;
+    height: 2em;
+    padding: 0 1em;
+    transition: all 0.3s linear;
+}
+
+.cbp-tm-submenu > li:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.cbp-tm-submenu >li > a {
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 0.8em;
+    line-height: 2.5em;
+    font-weight: bold;
+}
+
+
+/*---------------------- Main ------------------------*/
+.main {
+    width: 100%;
+    height: 100%;
+    min-width: 60em;
+    padding-top: 3em;
+    z-index: 9;
+}
+
+.main-wrapper {
+    height: 100%;
+}
+
+
+.main-wrapper aside.nav {
+    width: 12em;
+    height: 100%;
+    background: #333;
+    float: left;
+}
+
+.main-wrapper .content {
+    width: auto;
+    height: 100%;
+    margin-left: 12em;
+}
+
+
+/*---------------------- Aside -------------------------*/
+aside.nav ul {
+    width: 100%;
+    height: 100%;
+    padding: 2em 0;
+}
+
+aside.nav li {
+    width: 100%;
+    height: 2.5em;
+    transition: all 0.3s linear;
+}
+
+
+aside.nav li.chosen {
+    background: #dc4437;
+}
+
+aside.nav li:hover {
+    background: rgba(238, 72, 55, 0.51);
+}
+
+
+aside.nav li a {
+    width: 100%;
+    height: 100%;
+    margin-left: 1em;
+    color: white;
+    font-size: 1em;
+    line-height: 2.5em;
+    font-weight: bold;
+}
+
+aside.nav li a:before {
+    margin-right: 0.6em;
+    font-weight: normal;
+}
+
+/*-------------------- Title --------------------*/
+.main-wrapper .content {
+    padding: 2em;
+    height: 100%;
+    overflow: scroll;
+}
+
+.main-wrapper .content .title {
+    width: 20em;
+    height: 3em;
+}
+
+.main-wrapper .content .title h3 {
+    display: inline-block;
+    font-size: 1em;
+    line-height: 3em;
+    margin-right: 2em;
+}
+
+.main-wrapper .content .title a,
+.main-wrapper .content .action a{
+    display: inline-block;
+    font-size: 0.8em;
+    line-height: 2em;
+    padding: 0 1.2em;
+    margin: 0.7em 0;
+    border-radius: 2px;
+    background-color: #415e9c;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s linear;
+}
+
+.main-wrapper .content .title a:not(:last-child),
+.main-wrapper .content .action a:not(:last-child) {
+    margin-right: 1em;
+}
+
+.main-wrapper .content .title a.cancel,
+.main-wrapper .content .action a.cancel{
+    background-color: deeppink;
+}
+
+.main-wrapper .content .title a:hover
+.main-wrapper .content .action a:hover {
+    transform: translate(0,-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+}
+
+.main-wrapper .content .action {
+    margin-left: 15em;
+}

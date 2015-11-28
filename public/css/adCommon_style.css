@@ -1,0 +1,110 @@
+/*-------------------- user-list --------------------*/
+
+.main-wrapper .content .user-list {
+    width: 100%;
+    height: 34em;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.main-wrapper .content .user-list table {
+    width: 100%;
+    height: auto;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+.main-wrapper .content .user-list tr {
+    width: 100%;
+    height: 2em;
+}
+
+.main-wrapper .content .user-list td,
+.main-wrapper .content .user-list th {
+    padding: 0 1em;
+    font-size: 0.8em;
+    line-height: 2.5em;
+}
+
+.main-wrapper .content .user-list tr:nth-of-type(n+2):hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.main-wrapper .content .user-list tr:nth-of-type(1) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.main-wrapper .content .user-list tr:nth-of-type(2n+3) {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.main-wrapper .content .user-list .to-delete {
+    color: #dc4437;
+}
+
+
+/*------------- PF Item List Style -------------*/
+.pf-items {
+    width: 50em;
+    height: auto;
+}
+
+.pf-items li {
+    width: 100%;
+    height: 2em;
+    margin: 0.5em;
+}
+
+.pf-items li .pf-item-title {
+    font-size: 0.8em;
+    line-height: 2.5em;
+    float: left;
+    width: 5em;
+    text-align: right;
+    margin-right: 3em;
+    font-weight: 100;
+    color: gray;
+}
+
+.pf-items li input {
+    font-size: 0.8em;
+    float: left;
+    padding: 0.5em 0.2em;
+    border-radius: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 20em;
+}
+
+
+
+
+/*----------- Page Switcher Style -------------*/
+.page-switcher {
+    width: 100%;
+    height: 2em;
+    text-align: right;
+    margin-top: 0.5em;
+}
+
+.page-switcher li {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    margin: 0 0.1em;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 2em;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.page-switcher li.selected {
+    background: #62a0ff;
+    color: white;
+}
+
+.page-switcher li.disable {
+    cursor: default;
+}

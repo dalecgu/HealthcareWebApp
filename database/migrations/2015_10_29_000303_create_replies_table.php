@@ -19,7 +19,7 @@ class CreateRepliesTable extends Migration
             $table->string('content');
             $table->timestamps();
 
-            $table->foreign('topic_id')->references('id')->on('topicss')
+            $table->foreign('topic_id')->references('id')->on('topics')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
