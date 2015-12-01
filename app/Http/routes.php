@@ -79,7 +79,7 @@ Entrust::routeNeedsRole('coachdoctor*', 'coach');
 Route::group(['prefix' => 'coachdoctor','namespace' => 'CoachDoctor'], function() {
     Route::get('/', 'CoachDoctorController@index');
 
-    Route::post('advice', 'CoachDoctorController@index');
+    Route::post('advice', 'CoachDoctorController@postAdvice');
 });
 
 Route::resource('moment', 'Moment\MomentController');

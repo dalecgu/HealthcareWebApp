@@ -21,7 +21,6 @@ class CoachDoctorController extends Controller
 
     public function postAdvice()
     {
-        echo "ok";
         $advice = new Advice();
         $advice->user_id = $request->input('user_id');
         $advice->advisor_id = Auth::user()->id;

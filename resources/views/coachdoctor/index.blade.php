@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="_token" content="{{ csrf_token() }}"/>
     <title>跑呗</title>
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/coach.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/coach.css">
 </head>
 <body>
 <div class="content">
@@ -27,7 +26,7 @@
             </div>
         </nav>
         <div class="profile">
-            <img src="image/default_head.png">
+            <img src="/image/default_head.png">
 
             <div class="basic-info">
                 <a href="#">{{ Auth::user()->name }}</a>
@@ -44,13 +43,13 @@
                         @if($selectedCustomer=$customer)
                         @endif
                         <li class="chosen">
-                            <img src="image/default_head.png">
+                            <img src="/image/default_head.png">
                             <span class="name">{{ $customer->user->info->nickname }}</span>
                             <span class="notification unvisible"></span>
                         </li>
                     @else
                         <li>
-                            <img src="image/default_head.png">
+                            <img src="/image/default_head.png">
                             <span class="name">{{ $customer->user->info->nickname }}</span>
                             <span class="notification">1</span>
                         </li>
@@ -68,14 +67,14 @@
                         @foreach(App\Advice::all()->filter(function($item) use ($selectedCustomer) { return ($item->advisor_id==Auth::user()->id && $item->user_id==$selectedCustomer->user->id) || ($item->advisor_id==$selectedCustomer->user->id && $item->user_id==Auth::user()->id); }) as $advice)
                             @if($advice->advisor_id==Auth::user()->id)
                                 <li class="me chat-item clearfix">
-                                    <img src="image/default_head.png" class="head">
+                                    <img src="/image/default_head.png" class="head">
                                     <div class="words">
                                         <p>{{ $advice->content }}</p>
                                     </div>
                                 </li>
                             @else
                                 <li class="other chat-item clearfix">
-                                    <img src="image/default_head.png" class="head">
+                                    <img src="/image/default_head.png" class="head">
                                     <div class="words">
                                         <p>{{ $advice->content }}</p>
                                     </div>
@@ -89,11 +88,11 @@
                         <a href="#" class="fa fa-image"></a>
                         <a href="#" class="fa fa-smile-o"></a>
                     </nav>
-                    <form method="post" action="/coachdoctor/advice" name="words" id="words">
+                    {!! Form::open(['url' => '/coachdoctor/advice', 'method' => 'post', 'name' => 'words', 'id' => 'words']) !!}
                         <input type="integer" name="user_id" value="{{ $selectedCustomer->user->id }}" hidden>
                         <input type="submit">
                         <textarea name="content"></textarea>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
             </div>
         </div>
@@ -102,37 +101,7 @@
     <div class="notification-window">
         <ul>
             <li>
-                <img src="image/default_head.png" class="head">
-                <span>王麻子已经选择你作为教练了～</span>
-                <a href="#" class="to-chat">交谈</a>
-            </li>
-            <li>
-                <img src="image/default_head.png" class="head">
-                <span>王麻子已经选择你作为教练了～</span>
-                <a href="#" class="to-chat">交谈</a>
-            </li>
-            <li>
-                <img src="image/default_head.png" class="head">
-                <span>王麻子已经选择你作为教练了～</span>
-                <a href="#" class="to-chat">交谈</a>
-            </li>
-            <li>
-                <img src="image/default_head.png" class="head">
-                <span>王麻子已经选择你作为教练了～</span>
-                <a href="#" class="to-chat">交谈</a>
-            </li>
-            <li>
-                <img src="image/default_head.png" class="head">
-                <span>王麻子已经选择你作为教练了～</span>
-                <a href="#" class="to-chat">交谈</a>
-            </li>
-            <li>
-                <img src="image/default_head.png" class="head">
-                <span>王麻子已经选择你作为教练了～</span>
-                <a href="#" class="to-chat">交谈</a>
-            </li>
-            <li>
-                <img src="image/default_head.png" class="head">
+                <img src="/image/default_head.png" class="head">
                 <span>王麻子已经选择你作为教练了～</span>
                 <a href="#" class="to-chat">交谈</a>
             </li>
@@ -140,7 +109,7 @@
     </div>
     <div class="overlay"></div>
 </div>
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/coach.js"></script>
+<script src="/js/jquery-2.1.4.min.js"></script>
+<script src="/js/coach.js"></script>
 </body>
 </html>

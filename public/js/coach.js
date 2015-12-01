@@ -77,12 +77,11 @@ $(function () {
             $.post(
                 $(this).prop('action'),
                 {
-                    "_token": $('meta[name="_token"]').attr('content'),
+                    "_token": $(this).find('input[name="_token"]').val(),
                     "user_id": $(this).children("input").val(),
                     "content": $(this).children("textarea").val()
                 },
                 function(){
-                    alert("ok");
                 },
                 'json'
             );
