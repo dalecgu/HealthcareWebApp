@@ -10,6 +10,8 @@ use Auth;
 use Redirect;
 
 use App\IndividualInfo;
+use App\UserCoach;
+use App\UserDoctor;
 
 class IndividualController extends Controller
 {
@@ -54,5 +56,35 @@ class IndividualController extends Controller
         $individual_info->save();
 
         return Redirect::back();
+    }
+
+    public function addCoach(Request $request)
+    {
+        $userCoach = new UserCoach();
+        $userCoach->user_id = Auth::user()->id;
+        $userCoach->coach_id = $request->input('coach_id');
+        $userCoach->save();
+        return Redirect::to('/individual/profile');
+    }
+
+    public function deleteCoach()
+    {
+        UserCoach::where('user_id', Auth::user()->id)->delete();
+        return Redirect::to('/individual/profile');
+    }
+
+    public function addDoctor(Request $request)
+    {
+        $userDoctor = new UserDoctor();
+        $userDoctor->user_id = Auth::user()->id;
+        $userDoctor->doctor_id = $request->input('doctor_id');
+        $userDoctor->save();
+        return Redirect::to('/individual/profile');
+    }
+
+    public function deleteDoctor()
+    {
+        UserDoctor::where('user_id', Auth::user()->id)->delete();
+        return Redirect::to('/individual/profile');
     }
 }

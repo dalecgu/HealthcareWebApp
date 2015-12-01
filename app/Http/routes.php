@@ -20,6 +20,9 @@ Route::get('/', function () {
         if (Auth::user()->hasRole('individual')) {
             return redirect('individual');
         }
+        if (Auth::user()->hasRole('coach') || Auth::user()->hasRole('doctor')) {
+            return redirect('coachdoctor');
+        }
     }
     return view('auth.index');
 });
@@ -27,11 +30,12 @@ Route::get('/', function () {
 // 认证路由
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
 // 注册路由
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
-// 管理路由
-Entrust::routeNeedsRole('admin/*', 'admin');
+// 管理员路由
+Entrust::routeNeedsRole('admin*', 'admin');
 Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
     Route::get('user', 'AdminController@user');
     Route::get('coach', 'AdminController@coach');
@@ -51,8 +55,8 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
     Route::post('doctor/add', 'AdminController@createDoctor');
 });
 
-// 动态管理路由
-Entrust::routeNeedsRole('individual/*', 'individual');
+// 个人用户路由
+Entrust::routeNeedsRole('individual*', 'individual');
 Route::group(['prefix' => 'individual','namespace' => 'Individual'], function() {
     Route::get('/', 'IndividualController@index');
     Route::get('profile', 'IndividualController@profile');
@@ -61,13 +65,23 @@ Route::group(['prefix' => 'individual','namespace' => 'Individual'], function() 
     Route::put('profile/basic', 'IndividualController@updateBasicProfile');
     Route::put('profile/contact', 'IndividualController@updateContactProfile');
 
-    // 解雇
-    
+    // 添加、解雇教练
+    Route::post('profile/coach', 'IndividualController@addCoach');
+    Route::delete('profile/coach', 'IndividualController@deleteCoach');
+
+    // 添加、解雇医生
+    Route::post('profile/doctor', 'IndividualController@addDoctor');
+    Route::delete('profile/doctor', 'IndividualController@deleteDoctor');
 });
+
+// 教练、医生路由
+Entrust::routeNeedsRole('coachdoctor*', 'coach');
+Route::group(['prefix' => 'coachdoctor','namespace' => 'CoachDoctor'], function() {
+    Route::get('/', 'CoachDoctorController@index');
+
+    Route::post('advice', 'CoachDoctorController@index');
+});
+
 Route::resource('moment', 'Moment\MomentController');
-
-// 兴趣组管理路由
 Route::resource('group', 'Group\GroupController');
-
-// 主题管理路由
 Route::resource('topic', 'Topic\TopicController');

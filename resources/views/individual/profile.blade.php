@@ -335,15 +335,19 @@
     </div>
 
     <div class="layoff-cd-window">
-        <p class="fa fa-question-circle">你确定要解雇此人吗?</p>
+        {!! Form::open(['url' => '/individual/profile/coach', 'method' => 'delete', 'name' => 'deleteCoach']) !!}
+        {!! Form::close() !!}
+        {!! Form::open(['url' => '/individual/profile/doctor', 'method' => 'delete', 'name' => 'deleteDoctor']) !!}
+        {!! Form::close() !!}
+            <p class="fa fa-question-circle">你确定要解雇此人吗?</p>
 
-        <div class="layoff-cd-choice">
-            <a href="#" class="confirm">确定</a>
-            <a href="#" class="cancel">取消</a>
-        </div>
+            <div class="layoff-cd-choice">
+                <a href="#" onclick="form_used.submit();" class="confirm">确定</a>
+                <a href="#" class="cancel">取消</a>
+            </div>
     </div>
 
-    <div class="cd-list-window">
+    <div class="cd-list-window" id="coach-list-window">
         <div class="cd-list-panel">
             <nav class="clearfix">
                 <form class="search">
@@ -359,120 +363,146 @@
                         <li>
                             <img src="/image/default_head.png">
 
-                            <div class="cd-detail">
-                                <a href="#" class="cd-name">{{ $coach->info->nickname }}</a>
+                            <div class="cd-detail" id="cd-detail-{{ $coach->id }}">
+                                <a href="#" onclick="cdid={{ $coach->id }};" class="cd-name">{{ $coach->info->nickname }}</a>
 
                                 <p class="cd-info fa fa-info-circle">{{ $coach->info->company }}</p>
 
-                                <p class="cd-liking fa fa-heart">{{ $coach->customers->count() }}</p>
+                                <p class="cd-liking fa fa-heart">
+                                    @if($coach->customers)
+                                        {{ $coach->customers->count() }}
+                                    @else
+                                        0
+                                    @endif
+                                </p>
                             </div>
-                            <a href="#" class="to-rank-detail fa fa-plus">添加</a>
+                            {!! Form::open(['url' => '/individual/profile/coach', 'method' => 'post', 'name' => 'addCoachList'.$coach->id]) !!}
+                                <input type="integer" name="coach_id" value="{{$coach->id}}" hidden>
+                                <a href="#" onclick="document.{{ 'addCoachList'.$coach->id }}.submit();" class="to-rank-detail fa fa-plus">添加</a>
+                            {!! Form::close() !!}
                         </li>
                     @endforeach
-                    <li>
-                        <img src="/image/default_head.png">
-
-                        <div class="cd-detail">
-                            <a href="#" class="cd-name">张医生</a>
-
-                            <p class="cd-info fa fa-info-circle">协和医院主治医生</p>
-
-                            <p class="cd-liking fa fa-heart">173</p>
-                        </div>
-                        <a href="#" class="to-rank-detail fa fa-plus">添加</a>
-                    </li>
-                    <li>
-                        <img src="/image/default_head.png">
-
-                        <div class="cd-detail">
-                            <a href="#" class="cd-name">张医生</a>
-
-                            <p class="cd-info fa fa-info-circle">协和医院主治医生</p>
-
-                            <p class="cd-liking fa fa-heart">173</p>
-                        </div>
-                        <a href="#" class="to-rank-detail fa fa-plus">添加</a>
-                    </li>
-                    <li>
-                        <img src="/image/default_head.png">
-
-                        <div class="cd-detail">
-                            <a href="#" class="cd-name">张医生</a>
-
-                            <p class="cd-info fa fa-info-circle">协和医院主治医生</p>
-
-                            <p class="cd-liking fa fa-heart">173</p>
-                        </div>
-                        <a href="#" class="to-rank-detail fa fa-plus">添加</a>
-                    </li>
-                    <li>
-                        <img src="/image/default_head.png">
-
-                        <div class="cd-detail">
-                            <a href="#" class="cd-name">张医生</a>
-
-                            <p class="cd-info fa fa-info-circle">协和医院主治医生</p>
-
-                            <p class="cd-liking fa fa-heart">173</p>
-                        </div>
-                        <a href="#" class="to-rank-detail fa fa-plus">添加</a>
-                    </li>
-                    <li>
-                        <img src="/image/default_head.png">
-
-                        <div class="cd-detail">
-                            <a href="#" class="cd-name">张医生</a>
-
-                            <p class="cd-info fa fa-info-circle">协和医院主治医生</p>
-
-                            <p class="cd-liking fa fa-heart">173</p>
-                        </div>
-                        <a href="#" class="to-rank-detail fa fa-plus">添加</a>
-                    </li>
-                    <li>
-                        <img src="/image/default_head.png">
-
-                        <div class="cd-detail">
-                            <a href="#" class="cd-name">张医生</a>
-
-                            <p class="cd-info fa fa-info-circle">协和医院主治医生</p>
-
-                            <p class="cd-liking fa fa-heart">173</p>
-                        </div>
-                        <a href="#" class="to-rank-detail fa fa-plus">添加</a>
-                    </li>
                 </ul>
             </div>
         </div>
-        <div class="cd-info-panel unvisible">
-            <a href="#" class="fa fa-arrow-left back"></a>
-            <img src="/image/default_head.png">
-            <div class="brief-info">
-                <p class="nickname">王大妈</p>
-                <p class="company fa fa-info-circle">南京玛利亚女子医院主任</p>
-                <p class="liking fa fa-heart">173</p>
+        @foreach(App\User::all()->filter(function($item) { return $item->hasRole('coach'); }) as $coach) 
+            <div class="cd-info-panel unvisible" id="cd-info-{{ $coach->id }}">
+                <a href="#" class="fa fa-arrow-left back"></a>
+                <img src="/image/default_head.png">
+                <div class="brief-info">
+                    <p class="nickname">{{ $coach->info->nickname }}</p>
+                    <p class="company fa fa-info-circle">{{ $coach->info->company }}</p>
+                    <p class="liking fa fa-heart">
+                        @if($coach->customers)
+                            {{ $coach->customers->count() }}
+                        @else
+                            0
+                        @endif
+                    </p>
+                </div>
+                {!! Form::open(['url' => '/individual/profile/coach', 'method' => 'post', 'name' => 'addCoachDetail'.$coach->id]) !!}
+                    <input type="integer" name="coach_id" value="{{$coach->id}}" hidden>
+                    <a href="#" onclick="document.{{ 'addCoachDetail'.$coach->id }}.submit();" class="fa fa-plus">添加</a>
+                {!! Form::close() !!}
+                <div class="detail-info">
+                    <ul>
+                        <li>
+                            <h4 class="item-title">性别</h4>
+                            <p class="gender item-value">{{ $coach->info->gendor }}</p>
+                        </li>
+                        <li>
+                            <h4 class="item-title">年龄</h4>
+                            <p class="gender item-value">{{ $coach->info->age }}</p>
+                        </li>
+                        <li>
+                            <h4 class="item-title">描述</h4>
+                            <p class="gender item-value">
+                                {{ $coach->info->description }}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <a href="#" class="fa fa-plus">添加</a>
-            <div class="detail-info">
-                <ul>
-                    <li>
-                        <h4 class="item-title">性别</h4>
-                        <p class="gender item-value">女</p>
-                    </li>
-                    <li>
-                        <h4 class="item-title">年龄</h4>
-                        <p class="gender item-value">36</p>
-                    </li>
-                    <li>
-                        <h4 class="item-title">描述</h4>
-                        <p class="gender item-value">
-                            1996年开始行医，妙手回春，简直是华佗再世！
-                            用过的都说好！
-                        </p>
-                    </li>
+        @endforeach
+    </div>
+
+    <div class="cd-list-window" id="doctor-list-window">
+        <div class="cd-list-panel">
+            <nav class="clearfix">
+                <form class="search">
+                    <input class="search-input" placeholder="Search" type="text" value="" name="search">
+                    <input class="search-submit" type="submit" value="">
+                    <span class="fa fa-search"></span>
+                </form>
+                <a href="#" class="fa fa-close cancel"></a>
+            </nav>
+            <div class="cd-list-content">
+                <ul class="cd-list">
+                    @foreach(App\User::all()->filter(function($item) { return $item->hasRole('doctor'); }) as $doctor)
+                        <li>
+                            <img src="/image/default_head.png">
+
+                            <div class="cd-detail" id="cd-detail-{{ $doctor->id }}">
+                                <a href="#" onclick="cdid={{ $doctor->id }};" class="cd-name">{{ $doctor->info->nickname }}</a>
+
+                                <p class="cd-info fa fa-info-circle">{{ $doctor->info->company }}</p>
+
+                                <p class="cd-liking fa fa-heart">
+                                    @if($doctor->customers)
+                                        {{ $doctor->customers->count() }}
+                                    @else
+                                        0
+                                    @endif
+                                </p>
+                            </div>
+                            {!! Form::open(['url' => '/individual/profile/doctor', 'method' => 'post', 'name' => 'addDoctorList'.$doctor->id]) !!}
+                                <input type="integer" name="doctor_id" value="{{$doctor->id}}" hidden>
+                                <a href="#" onclick="document.{{ 'addDoctorList'.$doctor->id }}.submit();" class="to-rank-detail fa fa-plus">添加</a>
+                            {!! Form::close() !!}
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
+        @foreach(App\User::all()->filter(function($item) { return $item->hasRole('doctor'); }) as $doctor) 
+            <div class="cd-info-panel unvisible" id="cd-info-{{ $doctor->id }}">
+                <a href="#" class="fa fa-arrow-left back"></a>
+                <img src="/image/default_head.png">
+                <div class="brief-info">
+                    <p class="nickname">{{ $doctor->info->nickname }}</p>
+                    <p class="company fa fa-info-circle">{{ $doctor->info->company }}</p>
+                    <p class="liking fa fa-heart">
+                        @if($doctor->customers)
+                            {{ $doctor->customers->count() }}
+                        @else
+                            0
+                        @endif
+                    </p>
+                </div>
+                {!! Form::open(['url' => '/individual/profile/doctor', 'method' => 'post', 'name' => 'addDoctorDetail'.$doctor->id]) !!}
+                    <input type="integer" name="doctor_id" value="{{$doctor->id}}" hidden>
+                    <a href="#" onclick="document.{{ 'addDoctorDetail'.$doctor->id }}.submit();" class="fa fa-plus">添加</a>
+                {!! Form::close() !!}
+                <div class="detail-info">
+                    <ul>
+                        <li>
+                            <h4 class="item-title">性别</h4>
+                            <p class="gender item-value">{{ $doctor->info->gendor }}</p>
+                        </li>
+                        <li>
+                            <h4 class="item-title">年龄</h4>
+                            <p class="gender item-value">{{ $doctor->info->age }}</p>
+                        </li>
+                        <li>
+                            <h4 class="item-title">描述</h4>
+                            <p class="gender item-value">
+                                {{ $doctor->info->description }}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        @endforeach
     </div>
 
     <div class="overlay"></div>
@@ -480,154 +510,12 @@
 <script src="/js/jquery-2.1.4.min.js"></script>
 <script src="/js/basic.js"></script>
 <script>
-    $(function () {
-        $(".personal-cd-intro > nav > a").click(function () {
-            $(this).siblings("a").removeClass("chosen");
-            $(this).addClass("chosen");
-            var target = $(this).attr("href");
-            $(target).siblings("div").css("z-index", "1");
-            $(target).css("z-index", "2");
-            return false;
-        });
-
-        var profile_completion_percent = 0.66;
-        $(".completion-percent").css("width", profile_completion_percent * 100 + '%');
-        $(".completion-label").text(profile_completion_percent * 100 + "%");
-
-        $(".to-complete-profile").click(function () {
-            $(".center.column > div").hide();
-            $(".center.column .personal-profile").show();
-            $("body").scrollTop(0);
-            return false;
-        });
-
-        $(".to-cd-chat").click(function () {
-            $(".center.column > div").hide();
-            $(".center.column .personal-cd").show();
-            $("body").scrollTop(0);
-            return false;
-        });
-    });
-
-    $(function () {
-        $(".personal-cd-intro .cd-layoff").click(function (event) {
-            var $window = $(".layoff-cd-window");
-            $(".overlay").show();
-            $window.css("top", $("body").scrollTop() + "px");
-            $window.slideDown(500);
-            $("body").css("overflow", "hidden");
-            event.stopPropagation();
-            return false;
-        });
-
-        $(".layoff-cd-window .cancel").click(function () {
-            $(".layoff-cd-window").slideUp(500, function () {
-                $(".overlay").hide();
-            });
-            $("body").css("overflow", "auto");
-            return false;
-        });
-    });
-
-    $(function () {
-        $(".to-find-cd").click(function (event) {
-            var $window = $(".cd-list-window");
-            $(".overlay").show();
-            $window.css("top", ($("body").scrollTop + 100) + "px");
-            $window.slideDown(500);
-            $("body").css("overflow", "hidden");
-            event.stopPropagation();
-            return false;
-        });
-
-        $(".cd-list-window .cancel").click(function () {
-            $(".cd-list-window").slideUp(500, function () {
-                $(".overlay").hide();
-            });
-            $("body").css("overflow", "auto");
-            return false;
-        });
-
-        $(".cd-info-panel .back").click(function () {
-            $(".cd-info-panel").addClass("unvisible");
-        });
-
-        $(".cd-list-panel .cd-name").click(function(){
-            $(".cd-info-panel").removeClass("unvisible");
-        })
-    });
-
-    $(function () {
-
-        var i = 0;
-        for (i = 2014; i >= 1900; i--) {
-            $("#birth-year").append($("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
-        }
-        for (i = 0; i < 12; i++) {
-            $("#birth-month").append($("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
-        }
-        for (i = 0; i < 31; i++) {
-            $("#birth-date").append($("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
-        }
-        $("#birth-year").find("option[value='{{ explode('/', Auth::user()->info->birthday)[0] }}']").attr("selected", "selected");
-        $("#birth-month").find("option[value='{{ explode('/', Auth::user()->info->birthday)[1] }}']").attr("selected", "selected");
-        $("#birth-date").find("option[value='{{ explode('/', Auth::user()->info->birthday)[2] }}']").attr("selected", "selected");
-
-        $("#basic").click(function () {
-            var value = $(this).parent().next().find(".pf-item-value"),
-                    edit_value = $(this).parent().next().find(".pf-item-editable");
-            if ($(this).text() == "编辑") {
-                $(this).text("保存");
-            }
-            else {
-                $(this).text("编辑");
-                document.basic.submit();
-
-                edit_value.not(".selects").each(function () {
-                    $(this).attr("valid_val", $(this).val());
-                });
-
-                edit_value.filter('.selects').each(function () {
-                    var val = "",
-                            selects = $(this).find("select");
-                    selects.each(function () {
-                        val += $(this).val() + "/";
-                    });
-                    $(this).attr("valid_val", val.substr(0, val.length - 1));
-                });
-
-                value.each(function () {
-                    $(this).text($(this).parent().find(".pf-item-editable").attr("valid_val"));
-                });
-            }
-            value.toggle();
-            edit_value.toggle();
-            return false;
-        });
-
-        $("#contact").click(function () {
-            var value = $(this).parent().next().find(".pf-item-value"),
-                    edit_value = $(this).parent().next().find(".pf-item-editable");
-            if ($(this).text() == "编辑") {
-                $(this).text("保存");
-            }
-            else {
-                $(this).text("编辑");
-                document.contact.submit();
-
-                edit_value.not(".selects").each(function () {
-                    $(this).attr("valid_val", $(this).val());
-                });
-
-                value.each(function () {
-                    $(this).text($(this).parent().find(".pf-item-editable").attr("valid_val"));
-                });
-            }
-            value.toggle();
-            edit_value.toggle();
-            return false;
-        });
-    })
+    var year_now = {{ explode('/', Auth::user()->info->birthday)[0] }};
+    var month_now = {{ explode('/', Auth::user()->info->birthday)[1] }};
+    var date_now = {{ explode('/', Auth::user()->info->birthday)[2] }};
+    var cdid;
+    var form_used;
 </script>
+<script src="/js/profile.js"></script>
 </body>
 </html>

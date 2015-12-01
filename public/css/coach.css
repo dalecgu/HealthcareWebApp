@@ -34,6 +34,14 @@ a {
 
 body {
     background-color: #333;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
 /*------------------ Header Style -----------------*/
@@ -44,6 +52,7 @@ header {
     top: 0;
     left: 0;
     background-color: #dc4437;
+    z-index: 99;
 }
 
 header nav {
@@ -77,6 +86,10 @@ header nav .right.group .fa {
 
 header nav .right.group .fa:hover {
     color: white;
+}
+
+header nav .right.group .fa-bell.active {
+    color: lightyellow;
 }
 
 
@@ -205,6 +218,9 @@ header nav .right.group .fa:not(:last-child) {
     height: 100%;
     min-height: 45em;
     padding: 12em 5em 2em 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .customer-list {
@@ -223,6 +239,7 @@ header nav .right.group .fa:not(:last-child) {
     background-color: white;
     margin-left: 15em;
     border-radius: 3px 3px 3px 0;
+    z-index: 199;
 }
 
 
@@ -261,6 +278,23 @@ header nav .right.group .fa:not(:last-child) {
     line-height: 2.5em;
 }
 
+.customer-list .notification {
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+    float: left;
+    border-radius: 50%;
+    background: lightseagreen;
+    text-align: center;
+    font-size: 1em;
+    line-height: 1.5em;
+    transform: translateY(5px);
+}
+
+.customer-list .notification.unvisible {
+    display: none;
+}
+
 
 
 /*----------------- Chat Panel Style -------------------*/
@@ -294,6 +328,7 @@ header nav .right.group .fa:not(:last-child) {
 .chat-input {
     width: 100%;
     height: 8em;
+    background: white;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -330,10 +365,136 @@ header nav .right.group .fa:not(:last-child) {
 .chat-history {
     width: 100%;
     height: 100%;
-    padding-bottom: 8em;
+    padding: 1em 1em 9em;
+    overflow: scroll;
+}
+
+.chat-history ul {
+    width: 100%;
+    height: 100%;
+}
+
+.chat-history .chat-item {
+    margin: 0.5em 0;
 }
 
 
+.chat-history .chat-item img.head {
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+}
+
+.chat-history .chat-item.other img,
+.chat-history .chat-item.other .words{
+    float: left;
+}
 
 
+.chat-history .chat-item.me img,
+.chat-history .chat-item.me .words{
+    float: right;
+}
 
+.chat-history .chat-item .words{
+    background: lightcoral;
+    padding: 0.5em;
+    border-radius: 5px;
+    color: white;
+    margin: 0 1em;
+    position: relative;
+    max-width: 35em;
+}
+
+.chat-history .chat-item .words:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 0.5em solid transparent;
+}
+
+.chat-history .chat-item.other .words:before {
+    border-right-color: lightcoral;
+    position: absolute;
+    top: 0.3em;
+    left: -1em;
+}
+
+.chat-history .chat-item.me .words:before {
+    border-left-color: lightcoral;
+    position: absolute;
+    top: 0.3em;
+    right: -1em;
+}
+
+
+/*---------- Overlay Style ------------*/
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    height: 200em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+/*--------------- Notification Window Style ------------------*/
+.notification-window {
+    width: 30em;
+    height: 22.8em;
+    position: absolute;
+    top: 10em;
+    left: 50%;
+    padding: 1em 0 1em 1em;
+    transform: translate(-50%);
+    background-color: white;
+    border-radius: 0 0 4px 4px;
+    z-index: 999;
+    display: none;
+}
+
+.notification-window ul {
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+    padding: 0 1em 0 0;
+}
+
+.notification-window li {
+    width: 100%;
+    height: 3em;
+    background: rgba(32, 178, 170, 0.2);
+    margin-bottom: 0.5em;
+    border-radius: 3px;
+    padding: 0 1em;
+}
+
+.notification-window li img.head {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    margin: 0.5em 0.5em 0 0;
+    float: left;
+}
+
+.notification-window li span {
+    float: left;
+    font-size: 0.8em;
+    line-height: 3.375em;
+    font-weight: bold;
+}
+
+.notification-window li a {
+    font-size: 0.8em;
+    line-height: 1.125em;
+    padding: 0.5em 1.5em;
+    border-radius: 2px;
+    background-color: #415e9c;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    margin: 0.7em 0 0;
+    float: right;
+}

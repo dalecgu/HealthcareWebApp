@@ -92,10 +92,10 @@ class User extends Model implements AuthenticatableContract,
     public function customers()
     {
         if ($this->hasRole('coach')) {
-            return $this->hasOne('App\UserCoach', 'coach_id', 'id');
+            return $this->hasMany('App\UserCoach', 'coach_id', 'id');
         }
         if ($this->hasRole('doctor')) {
-            return $this->hasOne('App\UserDoctor', 'doctor_id', 'id');
+            return $this->hasMany('App\UserDoctor', 'doctor_id', 'id');
         }
         return [];
     }
