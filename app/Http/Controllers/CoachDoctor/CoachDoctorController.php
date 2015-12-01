@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Redirect;
+use Auth;
 
 use App\Advice;
 
@@ -19,7 +20,7 @@ class CoachDoctorController extends Controller
         return view('coachdoctor.index');
     }
 
-    public function postAdvice()
+    public function postAdvice(Request $request)
     {
         $advice = new Advice();
         $advice->user_id = $request->input('user_id');
