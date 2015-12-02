@@ -59,26 +59,33 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
 Entrust::routeNeedsRole('individual*', 'individual');
 Route::group(['prefix' => 'individual','namespace' => 'Individual'], function() {
     Route::get('/', 'IndividualController@index');
-    Route::get('profile', 'IndividualController@profile');
 
-    // 修改个人信息
-    Route::put('profile/basic', 'IndividualController@updateBasicProfile');
-    Route::put('profile/contact', 'IndividualController@updateContactProfile');
+    Route::group(['prefix' => 'profile'], function() {
+        Route::get('/', 'IndividualController@profile');
 
-    // 添加、解雇教练
-    Route::post('profile/coach', 'IndividualController@addCoach');
-    Route::delete('profile/coach', 'IndividualController@deleteCoach');
+        // 修改个人信息
+        Route::put('basic', 'IndividualController@updateBasicProfile');
+        Route::put('contact', 'IndividualController@updateContactProfile');
 
-    // 添加、解雇医生
-    Route::post('profile/doctor', 'IndividualController@addDoctor');
-    Route::delete('profile/doctor', 'IndividualController@deleteDoctor');
+        // 添加、解雇教练
+        Route::post('coach', 'IndividualController@addCoach');
+        Route::delete('coach', 'IndividualController@deleteCoach');
+
+        // 添加、解雇医生
+        Route::post('doctor', 'IndividualController@addDoctor');
+        Route::delete('doctor', 'IndividualController@deleteDoctor');
+
+        Route::get('chat', 'IndividualController@getAdvice');
+        Route::post('chat', 'IndividualController@postAdvice');
+    });
 });
 
 // 教练、医生路由
-Entrust::routeNeedsRole('coachdoctor*', 'coach');
+Entrust::routeNeedsRole('coachdoctor*', array('coach', 'doctor'), null, false);
 Route::group(['prefix' => 'coachdoctor','namespace' => 'CoachDoctor'], function() {
     Route::get('/', 'CoachDoctorController@index');
 
+    Route::get('advice', 'CoachDoctorController@getAdvice');
     Route::post('advice', 'CoachDoctorController@postAdvice');
 });
 

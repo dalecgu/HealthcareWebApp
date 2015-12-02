@@ -49,7 +49,49 @@ $(function () {
     $(".customer-list li").click(function () {
         $(this).siblings("li").removeClass("chosen");
         $(this).addClass("chosen");
-        alert("chat with " + $(this).find(".name").text());
+        $(".chat-header .name").text($(".customer-list .chosen .name").text());
+        selected_customer_id = $(".customer-list .chosen").attr("id").substr(8);
+        $.get(
+            "/coachdoctor/advice",
+            {
+                "user_id": selected_customer_id
+            },
+            function(data)
+            {
+                $(".chat-content .chat-history ul").children().remove();
+                $("form#words").children("textarea").val('');
+                var advices = eval(data).advices;
+                for (var i = 0; i < advices.length; i++) {
+                    var advice = advices[i];
+                    if (advice.advisor_id==auth_user_id) {
+                        $(".chat-content .chat-history ul").append("\
+                            <li class=\"me chat-item clearfix\">\
+                                <img src=\"/image/default_head.png\" class=\"head\">\
+                                <div class=\"words\">\
+                                    <p>" + advice.content + "</p>\
+                                </div>\
+                            </li>\
+                        ");
+                    } else {
+                        $(".chat-content .chat-history ul").append("\
+                            <li class=\"other chat-item clearfix\">\
+                                <img src=\"/image/default_head.png\" class=\"head\">\
+                                <div class=\"words\">\
+                                    <p>" + advice.content + "</p>\
+                                </div>\
+                            </li>\
+                        ");
+                    }
+                };
+            },
+            'json'
+        ).error(
+            function()
+            {
+                alert("遇到了一点问题，不过没关系，忽略就好了嘛～");
+            }
+        );
+        return false;
     });
 });
 
@@ -77,13 +119,44 @@ $(function () {
             $.post(
                 $(this).prop('action'),
                 {
-                    "_token": $(this).find('input[name="_token"]').val(),
-                    "user_id": $(this).children("input").val(),
-                    "content": $(this).children("textarea").val()
+                    "_token": $(this).find("input[name='_token']").val(),
+                    "user_id": selected_customer_id,
+                    "content": $(this).children("textarea").val().replace("\n", "<br/>")
                 },
-                function(){
+                function(data)
+                {
+                    $(".chat-content .chat-history ul").children().remove();
+                    $("form#words").children("textarea").val('');
+                    var advices = eval(data).advices;
+                    for (var i = 0; i < advices.length; i++) {
+                        var advice = advices[i];
+                        if (advice.advisor_id==auth_user_id) {
+                            $(".chat-content .chat-history ul").append("\
+                                <li class=\"me chat-item clearfix\">\
+                                    <img src=\"/image/default_head.png\" class=\"head\">\
+                                    <div class=\"words\">\
+                                        <p>" + advice.content + "</p>\
+                                    </div>\
+                                </li>\
+                            ");
+                        } else {
+                            $(".chat-content .chat-history ul").append("\
+                                <li class=\"other chat-item clearfix\">\
+                                    <img src=\"/image/default_head.png\" class=\"head\">\
+                                    <div class=\"words\">\
+                                        <p>" + advice.content + "</p>\
+                                    </div>\
+                                </li>\
+                            ");
+                        }
+                    };
                 },
                 'json'
+            ).error(
+                function()
+                {
+                    alert("遇到了一点问题，不过没关系，忽略就好了嘛～");
+                }
             );
             return false;
         }

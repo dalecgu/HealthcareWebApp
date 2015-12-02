@@ -211,16 +211,21 @@
                             <span class="name">姓名</span>
                         </div>
                         <div class="chat-content">
-                            <div class="chat-history"></div>
+                            <div class="chat-history">
+                                <ul>
+                                    
+                                </ul>
+                            </div>
                             <div class="chat-input">
                                 <nav>
                                     <a href="#" class="fa fa-image"></a>
                                     <a href="#" class="fa fa-smile-o"></a>
                                 </nav>
-                                <textarea name="" id="chat-message"></textarea>
+                                <form action="/individual/profile/chat" id="words">
+                                    <textarea id="chat-message"></textarea>
+                                </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
                 <div class="personal-profile">
@@ -342,7 +347,7 @@
             <p class="fa fa-question-circle">你确定要解雇此人吗?</p>
 
             <div class="layoff-cd-choice">
-                <a href="#" onclick="form_used.submit();" class="confirm">确定</a>
+                <a href="#" onclick="fire();" class="confirm">确定</a>
                 <a href="#" class="cancel">取消</a>
             </div>
     </div>
@@ -378,7 +383,7 @@
                             </div>
                             {!! Form::open(['url' => '/individual/profile/coach', 'method' => 'post', 'name' => 'addCoachList'.$coach->id]) !!}
                                 <input type="integer" name="coach_id" value="{{$coach->id}}" hidden>
-                                <a href="#" onclick="document.{{ 'addCoachList'.$coach->id }}.submit();" class="to-rank-detail fa fa-plus">添加</a>
+                                <a href="#" onclick="form_used={{ 'addCoachList'.$coach->id }};addCoach();" class="to-rank-detail fa fa-plus">添加</a>
                             {!! Form::close() !!}
                         </li>
                     @endforeach
@@ -402,7 +407,7 @@
                 </div>
                 {!! Form::open(['url' => '/individual/profile/coach', 'method' => 'post', 'name' => 'addCoachDetail'.$coach->id]) !!}
                     <input type="integer" name="coach_id" value="{{$coach->id}}" hidden>
-                    <a href="#" onclick="document.{{ 'addCoachDetail'.$coach->id }}.submit();" class="fa fa-plus">添加</a>
+                    <a href="#" onclick="form_used={{ 'addCoachDetail'.$coach->id }};addCoach();" class="fa fa-plus">添加</a>
                 {!! Form::close() !!}
                 <div class="detail-info">
                     <ul>
@@ -457,7 +462,7 @@
                             </div>
                             {!! Form::open(['url' => '/individual/profile/doctor', 'method' => 'post', 'name' => 'addDoctorList'.$doctor->id]) !!}
                                 <input type="integer" name="doctor_id" value="{{$doctor->id}}" hidden>
-                                <a href="#" onclick="document.{{ 'addDoctorList'.$doctor->id }}.submit();" class="to-rank-detail fa fa-plus">添加</a>
+                                <a href="#" onclick="form_used={{ 'addDoctorList'.$doctor->id }};addDoctor();" class="to-rank-detail fa fa-plus">添加</a>
                             {!! Form::close() !!}
                         </li>
                     @endforeach
@@ -481,7 +486,7 @@
                 </div>
                 {!! Form::open(['url' => '/individual/profile/doctor', 'method' => 'post', 'name' => 'addDoctorDetail'.$doctor->id]) !!}
                     <input type="integer" name="doctor_id" value="{{$doctor->id}}" hidden>
-                    <a href="#" onclick="document.{{ 'addDoctorDetail'.$doctor->id }}.submit();" class="fa fa-plus">添加</a>
+                    <a href="#" onclick="form_used={{ 'addDoctorDetail'.$doctor->id }};addDoctor();" class="fa fa-plus">添加</a>
                 {!! Form::close() !!}
                 <div class="detail-info">
                     <ul>
@@ -515,6 +520,9 @@
     var date_now = {{ explode('/', Auth::user()->info->birthday)[2] }};
     var cdid;
     var form_used;
+    var csrf_token = "{{ csrf_token() }}";
+    var auth_user_id = {{ Auth::user()->id }};
+    var type;
 </script>
 <script src="/js/profile.js"></script>
 </body>

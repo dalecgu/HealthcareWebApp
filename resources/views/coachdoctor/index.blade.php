@@ -42,13 +42,13 @@
                     @if($key==0)
                         @if($selectedCustomer=$customer)
                         @endif
-                        <li class="chosen">
+                        <li class="chosen" id="customer{{ $customer->user_id }}">
                             <img src="/image/default_head.png">
                             <span class="name">{{ $customer->user->info->nickname }}</span>
                             <span class="notification unvisible"></span>
                         </li>
                     @else
-                        <li>
+                        <li id="customer{{ $customer->user_id }}">
                             <img src="/image/default_head.png">
                             <span class="name">{{ $customer->user->info->nickname }}</span>
                             <span class="notification">1</span>
@@ -89,8 +89,6 @@
                         <a href="#" class="fa fa-smile-o"></a>
                     </nav>
                     {!! Form::open(['url' => '/coachdoctor/advice', 'method' => 'post', 'name' => 'words', 'id' => 'words']) !!}
-                        <input type="integer" name="user_id" value="{{ $selectedCustomer->user->id }}" hidden>
-                        <input type="submit">
                         <textarea name="content"></textarea>
                     {!! Form::close() !!}
                 </div>
@@ -110,6 +108,10 @@
     <div class="overlay"></div>
 </div>
 <script src="/js/jquery-2.1.4.min.js"></script>
+<script>
+    var auth_user_id = {{ Auth::user()->id }};
+    var selected_customer_id = $(".customer-list .chosen").attr("id").substr(8);;
+</script>
 <script src="/js/coach.js"></script>
 </body>
 </html>
