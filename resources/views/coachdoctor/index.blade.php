@@ -21,8 +21,17 @@
             </div>
 
             <div class="right group">
-                <a href="#" class="fa fa-cog"></a>
-                <a href="#" class="fa fa-bell active"></a>
+                <ul class="cbp-tm-menu">
+                    <li>
+                        <a href="#" class="fa fa-bell active"></a>
+                    </li>
+                    <li>
+                        <a href="#" class="fa fa-cog"></a>
+                        <ul class="cbp-tm-submenu">
+                            <li><a href="/auth/logout">登出</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </nav>
         <div class="profile">
@@ -38,49 +47,57 @@
     <div class="main">
         <div class="customer-list">
             <ul>
-                @foreach(Auth::user()->customers as $key=>$customer)
-                    @if($key==0)
-                        @if($selectedCustomer=$customer)
+                @if(Auth::user()->customers->count()!=0)
+                    @foreach(Auth::user()->customers as $key=>$customer)
+                        @if($key==0)
+                            @if($selectedCustomer=$customer)
+                            @endif
+                            <li class="chosen" id="customer{{ $customer->user_id }}">
+                                <img src="/image/default_head.png">
+                                <span class="name">{{ $customer->user->info->nickname }}</span>
+                                <span class="notification unvisible"></span>
+                            </li>
+                        @else
+                            <li id="customer{{ $customer->user_id }}">
+                                <img src="/image/default_head.png">
+                                <span class="name">{{ $customer->user->info->nickname }}</span>
+                                <span class="notification">1</span>
+                            </li>
                         @endif
-                        <li class="chosen" id="customer{{ $customer->user_id }}">
-                            <img src="/image/default_head.png">
-                            <span class="name">{{ $customer->user->info->nickname }}</span>
-                            <span class="notification unvisible"></span>
-                        </li>
-                    @else
-                        <li id="customer{{ $customer->user_id }}">
-                            <img src="/image/default_head.png">
-                            <span class="name">{{ $customer->user->info->nickname }}</span>
-                            <span class="notification">1</span>
-                        </li>
-                    @endif
-                @endforeach
+                    @endforeach
+                @endif
             </ul>
         </div>
         <div class="chat-panel">
             <div class="chat-header">
-                <span class="name">{{ $selectedCustomer->user->info->nickname }}</span>
+                <span class="name">
+                    @if(Auth::user()->customers->count()!=0)
+                        {{ $selectedCustomer->user->info->nickname }}
+                    @endif
+                </span>
             </div>
             <div class="chat-content">
                 <div class="chat-history">
                     <ul>
-                        @foreach(App\Advice::all()->filter(function($item) use ($selectedCustomer) { return ($item->advisor_id==Auth::user()->id && $item->user_id==$selectedCustomer->user->id) || ($item->advisor_id==$selectedCustomer->user->id && $item->user_id==Auth::user()->id); }) as $advice)
-                            @if($advice->advisor_id==Auth::user()->id)
-                                <li class="me chat-item clearfix">
-                                    <img src="/image/default_head.png" class="head">
-                                    <div class="words">
-                                        <p>{{ $advice->content }}</p>
-                                    </div>
-                                </li>
-                            @else
-                                <li class="other chat-item clearfix">
-                                    <img src="/image/default_head.png" class="head">
-                                    <div class="words">
-                                        <p>{{ $advice->content }}</p>
-                                    </div>
-                                </li>
-                            @endif
-                        @endforeach
+                        @if(Auth::user()->customers->count()!=0)
+                            @foreach(App\Advice::all()->filter(function($item) use ($selectedCustomer) { return ($item->advisor_id==Auth::user()->id && $item->user_id==$selectedCustomer->user->id) || ($item->advisor_id==$selectedCustomer->user->id && $item->user_id==Auth::user()->id); }) as $advice)
+                                @if($advice->advisor_id==Auth::user()->id)
+                                    <li class="me chat-item clearfix">
+                                        <img src="/image/default_head.png" class="head">
+                                        <div class="words">
+                                            <p>{{ $advice->content }}</p>
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="other chat-item clearfix">
+                                        <img src="/image/default_head.png" class="head">
+                                        <div class="words">
+                                            <p>{{ $advice->content }}</p>
+                                        </div>
+                                    </li>
+                                @endif
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
                 <div class="chat-input">

@@ -352,6 +352,18 @@ function getHistory() {
                     <div class=\"chat-content\">\
                         <div class=\"chat-history\">\
                             <ul>\
+                            </ul>\
+                        </div>\
+                        <div class=\"chat-input\">\
+                            <nav>\
+                                <a href=\"#\" class=\"fa fa-image\"></a>\
+                                <a href=\"#\" class=\"fa fa-smile-o\"></a>\
+                            </nav>\
+                            <form action=\"/individual/profile/chat\" id=\"words\">\
+                                <textarea id=\"chat-message\"></textarea>\
+                            </form>\
+                        </div>\
+                    </div>\
                 ")
             for (var i = 0; i < advices.length; i++) {
                 var advice = advices[i];
@@ -375,20 +387,6 @@ function getHistory() {
                     ");
                 }
             };
-            $(".cd-chat-panel").append("\
-                            </ul>\
-                        </div>\
-                        <div class=\"chat-input\">\
-                            <nav>\
-                                <a href=\"#\" class=\"fa fa-image\"></a>\
-                                <a href=\"#\" class=\"fa fa-smile-o\"></a>\
-                            </nav>\
-                            <form action=\"/individual/profile/chat\" id=\"words\">\
-                                <textarea id=\"chat-message\"></textarea>\
-                            </form>\
-                        </div>\
-                    </div>\
-                ");
         },
         'json'
     ).error(

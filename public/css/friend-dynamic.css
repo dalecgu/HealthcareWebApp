@@ -1,0 +1,124 @@
+/**
+ * Created by lance on 11/30/15.
+ */
+
+/*---------------- friend-dynamic ----------------*/
+.f-single-head {
+    overflow: hidden;
+    padding: 1em 1em 0.5em 1em;
+}
+
+.f-single-head .head {
+    width: 3em;
+    height: 3em;
+    float: left;
+}
+
+.item-detail {
+    margin: 0.2em 0 0.2em 0.6em;
+    float: left;
+}
+
+.f-nick {
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 900;
+    color: #4d76cc;
+}
+
+.item-time {
+    display: block;
+    margin-top: 0.3em;
+    font-size: 0.8em;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.f-item {
+    padding: 0 1em;
+}
+
+.f-info {
+    font-size: 0.95em;
+    line-height: 1.5;
+    color: black;
+    margin-bottom: 0.5em;
+}
+
+.f-image-box img {
+    width: 15.5em;
+}
+
+.f-interact {
+    padding: 0.6em 1em;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.f-interact a {
+    text-decoration: none;
+    font-size: 0.8em;
+    color: gray;
+    margin-right: 2em;
+}
+
+.f-interact a:before {
+    margin-right: 0.5em;
+}
+
+.f-comments {
+    padding-bottom: 1em;
+    display: none;
+}
+
+.my-comment {
+    padding: 0.2em 1em;
+}
+
+.comment-content .head {
+    width: 2em;
+    height: 2em;
+    vertical-align: top;
+    margin-right: 0.3em;
+}
+
+.comment-content textarea {
+    width: 36em;
+    height: 2.5em;
+    resize: none;
+    padding: 0.3em;
+    outline: none;
+    font-size: 0.8em;
+}
+
+.comment-content > p {
+    font-size: 0.6em;
+    color: gray;
+    position: relative;
+    left: 4em;
+}
+
+.comments-list {
+    font-size: 14px;
+    padding: 0 1em;
+}
+
+
+.f-single > .comments-list {
+    padding: 0 1em 1em;
+}
+
+.comments-item {
+    margin: 0.3em;
+}
+
+.name-card {
+    text-decoration: none;
+    font-weight: bold;
+    color: #4d76cc;
+}
+
+.comments-op .fa-comments {
+    text-decoration: none;
+    color: #4d76cc;
+    margin-left: 0.5em;
+}

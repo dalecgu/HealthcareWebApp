@@ -1,0 +1,266 @@
+.btn {
+    font-size: 0.8em;
+    line-height: 1.125em;
+    padding: 0.5em 1.5em;
+    margin-top: 0.8em;
+    border-radius: 2px;
+    background-color: deeppink;
+    color: white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s linear;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.module {
+    transition: all linear 0.3s;
+}
+
+.module:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3), 0 0 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/*------------ Group profile Style --------------*/
+.group-profile {
+    width: 100%;
+    height: auto;
+    margin-bottom: 1em;
+}
+
+.group-header {
+    width: 100%;
+    height: 4em;
+    background: white;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
+}
+
+.group-header .cover-image {
+    width: 3em;
+    height: 3em;
+    float: left;
+    margin-right: 1em;
+}
+
+.group-header .group-name {
+    font-size: 1.5em;
+    line-height: 2em;
+    float: left;
+}
+
+.group-header .to-join {
+    float: right;
+
+}
+
+.group-intro {
+    background: white;
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    position: relative;
+}
+
+.group-intro:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: 0.5em solid transparent;
+    border-bottom-color: white;
+    position: absolute;
+    top: -1em;
+    left: 2em;
+}
+
+.group-intro p {
+    font-size: 0.8em;
+    margin-bottom: 1em;
+}
+
+/*---------------- Group Topic Style ----------------*/
+.group-topic {
+    background: white;
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+}
+
+.topic-header {
+    width: 100%;
+    height: 3em;
+    margin-bottom: 0.5em;
+}
+
+.topic-header h4 {
+    font-size: 1em;
+    line-height: 3em;
+    float: left;
+}
+
+.topic-header .to-release {
+    float: right;
+    background-color: #415e9c;
+}
+
+.topic-header .to-release:before {
+    margin-right: 0.3em;
+}
+
+.topic-list {
+    width: 100%;
+    height: auto;
+    text-align: left;
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+.topic-list tr {
+    width: 100%;
+    height: 2em;
+    font-size: 0.8em;
+    line-height: 2.5em;
+    color: black;
+}
+
+.topic-list tr a {
+    color: black;
+}
+
+.topic-list tr a:visited {
+    color: #266dff;
+}
+
+.topic-list tr:first-child  {
+    border-bottom: 1px solid gray;
+}
+
+.topic-list tr:nth-child(n+2) {
+    border-bottom: 1px dashed gray;
+}
+
+/*----------- Page Switcher Style -------------*/
+.page-switcher {
+    width: 100%;
+    height: 2em;
+    text-align: right;
+    margin-top: 0.5em;
+}
+
+.page-switcher li {
+    display: inline-block;
+    width: 2em;
+    height: 2em;
+    margin: 0 0.1em;
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 2em;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.page-switcher li.selected {
+    background: #62a0ff;
+    color: white;
+}
+
+.page-switcher li.disable {
+    cursor: default;
+}
+
+
+/*------------------ Window Style ------------------*/
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    height: 200em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+}
+
+/*--------------- Layoff CD Window Style ------------------*/
+.new-topic-window {
+    width: 40em;
+    height: 22em;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    background-color: white;
+    border-radius: 4px;
+    z-index: 999;
+    display: none;
+}
+
+.new-topic-window header {
+    background-color: #456eb0;
+    border-radius: 4px 4px 0 0;
+    padding: 0.5em 1em;
+}
+
+.new-topic-window header h4 {
+    font-size: 0.8em;
+    color: white;
+    float: left;
+    font-weight: normal;
+}
+
+.new-topic-window header a.fa-close {
+    float: right;
+    color: white;
+}
+
+.new-topic-window form {
+    width: 100%;
+    height: 23em;
+    border-radius: 0 0 4px 4px;
+    padding: 1em;
+}
+
+.new-topic-window label {
+    font-size: 0.8em;
+    line-height: 2em;
+}
+
+.new-topic-window input[type='text'] {
+    outline: none;
+    width: 100%;
+    padding: 0.5em 1em;
+}
+
+.new-topic-window textarea {
+    outline: none;
+    width: 100%;
+    height: 15em;
+    padding: 0.5em 1em;
+    resize: none;
+}
+
+.new-topic-window input[type='submit'] {
+    font-size: 0.8em;
+    line-height: 1.125em;
+    padding: 0.5em 1.5em;
+    margin-top: 0.8em;
+    border-radius: 2px;
+    background-color: #456eb0;
+    color: white;
+    border: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s linear;
+    float: right;
+}
+
+.new-topic-window input[type='submit']:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}

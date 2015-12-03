@@ -61,22 +61,28 @@ Route::group(['prefix' => 'individual','namespace' => 'Individual'], function() 
     Route::get('/', 'IndividualController@index');
 
     Route::group(['prefix' => 'profile'], function() {
-        Route::get('/', 'IndividualController@profile');
+        Route::get('/', 'ProfileController@profile');
 
         // 修改个人信息
-        Route::put('basic', 'IndividualController@updateBasicProfile');
-        Route::put('contact', 'IndividualController@updateContactProfile');
+        Route::put('basic', 'ProfileController@updateBasicProfile');
+        Route::put('contact', 'ProfileController@updateContactProfile');
 
         // 添加、解雇教练
-        Route::post('coach', 'IndividualController@addCoach');
-        Route::delete('coach', 'IndividualController@deleteCoach');
+        Route::post('coach', 'ProfileController@addCoach');
+        Route::delete('coach', 'ProfileController@deleteCoach');
 
         // 添加、解雇医生
-        Route::post('doctor', 'IndividualController@addDoctor');
-        Route::delete('doctor', 'IndividualController@deleteDoctor');
+        Route::post('doctor', 'ProfileController@addDoctor');
+        Route::delete('doctor', 'ProfileController@deleteDoctor');
 
-        Route::get('chat', 'IndividualController@getAdvice');
-        Route::post('chat', 'IndividualController@postAdvice');
+        Route::get('chat', 'ProfileController@getAdvice');
+        Route::post('chat', 'ProfileController@postAdvice');
+    });
+
+    Route::group(['prefix' => 'health'], function() {
+        Route::get('/', 'HealthController@index');
+
+        Route::post('daily', 'HealthController@postDailyData');
     });
 });
 
