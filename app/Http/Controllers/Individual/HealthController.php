@@ -20,6 +20,7 @@ class HealthController extends Controller
     {
         $health = new Health();
         $file = $request->file('daily_health_data');
-        $file->move(app_path().'/storage/health/daily/', 'test.xml');
+        $content = file_get_contents($file);
+        return $content;
     }
 }

@@ -5,7 +5,7 @@
     <title>Health</title>
 </head>
 <body>
-<form method="post" action="/individual/health/daily">
+<form method="post" action="/individual/health/daily" enctype="multipart/form-data">
     {!! csrf_field() !!}
     <input type="file" name="daily_health_data">
     <input type="submit">
