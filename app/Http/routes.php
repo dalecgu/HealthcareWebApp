@@ -34,6 +34,13 @@ Route::get('auth/logout', 'Auth\AuthController@getLogout');
 // 注册路由
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
+// 健康数据路由
+Route::group(['prefix' => 'health', 'namespace' => 'Health'], function() {
+    Route::get('/', 'HealthController@index');
+
+    Route::post('daily', 'HealthController@postDailyData');
+});
+
 // 管理员路由
 Entrust::routeNeedsRole('admin*', 'admin');
 Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
@@ -80,10 +87,32 @@ Route::group(['prefix' => 'individual','namespace' => 'Individual'], function() 
     });
 
     Route::group(['prefix' => 'health'], function() {
-        Route::get('/', 'HealthController@index');
-
-        Route::post('daily', 'HealthController@postDailyData');
+        Route::get('statistics', 'HealthController@statistics');
+        Route::get('rank', 'HealthController@rank');
     });
+});
+
+// 活动路由
+Entrust::routeNeedsRole('activity*', 'individual');
+Route::group(['prefix' => 'activity','namespace' => 'Activity'], function() {
+    Route::get('/', 'ActivityController@index');
+});
+
+// 兴趣组路由
+Entrust::routeNeedsRole('group*', 'individual');
+Route::group(['prefix' => 'group','namespace' => 'Group'], function() {
+    Route::get('/', 'GroupController@index');
+    Route::get('/{id}', 'GroupController@show');
+
+    Route::get('/{id}/join', 'GroupController@join');
+    Route::post('/{id}/join', 'GroupController@join');
+    Route::post('/{id}/exit', 'GroupController@exit');
+});
+
+// 兴趣组主题路由
+Entrust::routeNeedsRole('topic*', 'individual');
+Route::group(['prefix' => 'topic','namespace' => 'Topic'], function() {
+    Route::get('/{id}', 'TopicController@show');
 });
 
 // 教练、医生路由
@@ -94,7 +123,3 @@ Route::group(['prefix' => 'coachdoctor','namespace' => 'CoachDoctor'], function(
     Route::get('advice', 'CoachDoctorController@getAdvice');
     Route::post('advice', 'CoachDoctorController@postAdvice');
 });
-
-Route::resource('moment', 'Moment\MomentController');
-Route::resource('group', 'Group\GroupController');
-Route::resource('topic', 'Topic\TopicController');

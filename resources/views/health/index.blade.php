@@ -5,10 +5,10 @@
     <title>Health</title>
 </head>
 <body>
-<form method="post" action="/individual/health/daily" enctype="multipart/form-data">
+<form name="daily" method="post" action="/health/daily" enctype="multipart/form-data">
     {!! csrf_field() !!}
     <input type="file" name="daily_health_data">
-    <input type="submit">
+    <input type="submit" name="submit">
 </form>
 </body>
 </html>

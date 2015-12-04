@@ -18,11 +18,6 @@ class CreateAdvicesTable extends Migration
             $table->unsignedInteger('advisor_id');
             $table->string('content');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('advisor_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -107,10 +107,29 @@ $(function () {
     });
 });
 
-$(".overlay").click(function () {
-    $(".notification-window").slideUp(500, function () {
-        $(".overlay").hide();
+$(function () {
+    $(".profile .to-edit-profile").click(function () {
+        var $window = $(".profile-edit-window");
+        $(".overlay").show();
+        $window.css("top", $("body").scrollTop() + "px");
+        $window.slideDown(500);
+        $("body").css("overflow", "hidden");
+        event.stopPropagation();
+        return false;
     });
+});
+
+$(".overlay").click(function () {
+    if($(".notification-window").is(":visible")){
+        $(".notification-window").slideUp(500, function () {
+            $(".overlay").hide();
+        });
+    }
+    if($(".profile-edit-window").is(":visible")){
+        $(".profile-edit-window").slideUp(500, function () {
+            $(".overlay").hide();
+        });
+    }
 });
 
 $(function () {
@@ -164,10 +183,58 @@ $(function () {
 });
 
 $(function () {
-    $(".cbp-tm-menu > li").bind("mouseover", function(){
-        $(this).find(".cbp-tm-submenu").addClass("cbp-tm-show");
+    $(".profile .menu").bind("mouseover", function () {
+        $(this).find(".submenu").addClass("shown");
     }).bind("mouseout", function () {
-        $(this).find(".cbp-tm-submenu").removeClass("cbp-tm-show");
+        $(this).find(".submenu").removeClass("shown");
     });
 
+});
+
+$(function () {
+    var i = 0;
+    for (i = 2014; i >= 1900; i--) {
+        $("#birth-year").append($("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
+    }
+    for (i = 0; i < 12; i++) {
+        $("#birth-month").append($("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
+    }
+    for (i = 0; i < 31; i++) {
+        $("#birth-date").append($("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
+    }
+    $("#birth-year").find("option[value='1995']").attr("selected", "selected");
+    $("#birth-month").find("option[value='11']").attr("selected", "selected");
+    $("#birth-date").find("option[value='21']").attr("selected", "selected");
+
+
+    $(".pf-head-edit").click(function () {
+        var value = $(this).parent().next().find(".pf-item-value"),
+            edit_value = $(this).parent().next().find(".pf-item-editable");
+        if ($(this).text() == "编辑") {
+            $(this).text("保存");
+        }
+        else {
+            $(this).text("编辑");
+
+            edit_value.not(".selects").each(function () {
+                $(this).attr("valid_val", $(this).val());
+            });
+
+            edit_value.filter('.selects').each(function () {
+                var val = "",
+                    selects = $(this).find("select");
+                selects.each(function () {
+                    val += $(this).val() + "-";
+                });
+                $(this).attr("valid_val", val.substr(0, val.length - 1));
+            });
+
+            value.each(function () {
+                $(this).text($(this).parent().find(".pf-item-editable").attr("valid_val"));
+            });
+        }
+        value.toggle();
+        edit_value.toggle();
+        return false;
+    });
 });

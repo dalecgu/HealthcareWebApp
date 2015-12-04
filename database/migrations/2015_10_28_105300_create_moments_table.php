@@ -17,9 +17,6 @@ class CreateMomentsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('content');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

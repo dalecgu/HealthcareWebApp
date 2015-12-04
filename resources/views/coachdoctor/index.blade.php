@@ -21,25 +21,23 @@
             </div>
 
             <div class="right group">
-                <ul class="cbp-tm-menu">
-                    <li>
-                        <a href="#" class="fa fa-bell active"></a>
-                    </li>
-                    <li>
-                        <a href="#" class="fa fa-cog"></a>
-                        <ul class="cbp-tm-submenu">
-                            <li><a href="/auth/logout">登出</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                <a href="#" class="fa fa-bell active"></a>
             </div>
         </nav>
         <div class="profile">
             <img src="/image/default_head.png">
 
             <div class="basic-info">
-                <a href="#">{{ Auth::user()->name }}</a>
-                <a href="#">{{ Auth::user()->email }}</a>
+
+                <a href="#" class="user-name">{{ Auth::user()->name }}</a>
+                <div class="menu">
+                    <a href="#" class="fa fa-caret-down to-conf"></a>
+                    <ul class="submenu">
+                        <li><a href="#" class="to-edit-profile">修改资料</a></li>
+                        <li><a href="#">登出</a></li>
+                    </ul>
+                </div>
+                <a href="#" class="user-email">{{ Auth::user()->email }}</a>
             </div>
         </div>
     </header>

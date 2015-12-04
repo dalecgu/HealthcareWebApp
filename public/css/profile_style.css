@@ -653,16 +653,57 @@
     padding: 1em;
 }
 
+.head-info,
 .basic-profile-info,
 .contact-info {
     width: 100%;
     margin-bottom: 1em;
 }
 
+.head-info .head {
+    width: 3.4em;
+    height: 3.4em;
+    /*display: none;*/
+}
+
+.head-info .upload {
+    display: none;
+}
+
+.head-info .fa-camera {
+    position: relative;
+    color: black;
+    font-size: 0.8em;
+    line-height: 1.125em;
+    margin-bottom: 0.5em;
+}
+
+.head-info .head-preview {
+    padding: 0.3em;
+    border: 1px dashed gray;
+    width: 4em;
+    height: 4em;
+}
+
+.head-info .head-preview img {
+    width: 3.4em;
+    height: 3.4em;
+}
+
+.head-info .fa-camera input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
 .pf-head {
     width: 100%;
     height: 2em;
     border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    margin-bottom: 1em;
 }
 
 .pf-head .pf-head-title {
@@ -684,7 +725,6 @@
 
 .pf-items {
     width: 100%;
-    margin-top: 1em;
 }
 
 .pf-items li {
@@ -820,27 +860,19 @@
     overflow: scroll;
 }
 
-.chat-history ul {
-    width: 100%;
-    height: 100%;
-}
-
 .chat-history .chat-item {
     margin: 0.5em 0;
 }
-
 
 .chat-history .chat-item img.head {
     width: 3em;
     height: 3em;
     border-radius: 50%;
 }
-
 .chat-history .chat-item.other img,
 .chat-history .chat-item.other .words{
     float: left;
 }
-
 
 .chat-history .chat-item.me img,
 .chat-history .chat-item.me .words{
@@ -878,4 +910,3 @@
     top: 0.3em;
     right: -1em;
 }
-

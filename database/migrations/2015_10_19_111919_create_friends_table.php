@@ -16,12 +16,6 @@ class CreateFriendsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('friend_id');
             $table->timestamps();
-            
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('friend_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->primary(array('user_id', 'friend_id'));
         });
     }
 

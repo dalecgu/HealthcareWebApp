@@ -17,6 +17,7 @@ class ReplyTableSeeder extends Seeder
 
         $reply->topic_id = 1;
         $reply->user_id = 1;
+        $reply->quote = 0;
         $reply->content = 'test';
 
         $reply->save();

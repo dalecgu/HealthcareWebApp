@@ -16,12 +16,6 @@ class CreateUserDoctorTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('doctor_id');
             $table->timestamps();
-            
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('doctor_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->primary(array('user_id', 'doctor_id'));
         });
     }
 

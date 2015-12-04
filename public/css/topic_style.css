@@ -111,6 +111,20 @@
     line-height: 1.125em;
 }
 
+.comment-content .quote {
+    background-color: rgba(128, 128, 128, 0.33);
+    padding: 0.5em;
+    margin-bottom: 1em;
+}
+
+.comment-content .quote-title {
+    margin-bottom: 0.5em;
+}
+
+.comment-content .quote-title span {
+    color: #415e9c;
+    font-weight: bold;
+}
 
 /*----------- Page Switcher Style -------------*/
 .page-switcher {

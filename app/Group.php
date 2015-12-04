@@ -18,4 +18,9 @@ class Group extends Model
     {
         return $this->hasMany('App\Topic', 'group_id', 'id');
     }
+
+    public function creator()
+    {
+        return $this->belongsTo('App\User', 'creator_id', 'id');
+    }
 }

@@ -35,22 +35,12 @@
         </nav>
         <div class="panel" id="my-attention">
             <ul>
-                <li>
-                    <img src="/image/default_head.png">
-                    <a href="#">詹姆斯哈登</a>
-                </li>
-                <li>
-                    <img src="/image/default_head.png">
-                    <a href="#">德怀特霍华德</a>
-                </li>
-                <li>
-                    <img src="/image/default_head.png">
-                    <a href="#">科比布莱恩特</a>
-                </li>
-                <li>
-                    <img src="/image/default_head.png">
-                    <a href="#">歪脖子</a>
-                </li>
+                @foreach(Auth::user()->friends as $friend)
+                    <li>
+                        <img src="image/default_head.png">
+                        <a href="#">{{ App\User::where('id', $friend->friend_id)->first()->info->nickname  }}</a>
+                    </li>
+                @endforeach
             </ul>
             <div class="sc-nav">
                 <form class="search">
@@ -63,20 +53,15 @@
         <div class="panel" id="my-interest-group">
 
             <ul>
-                <li>
-                    <img src="/image/award/a1.png" class="group-cover">
-                    <div class="group-info">
-                        <a href="#" class="group-name">神经病研究中心</a>
-                        <p class="group-description">这里是神经病聚集地,一起来疯.</p>
-                    </div>
-                </li>
-                <li>
-                    <img src="/image/award/a2.png" class="group-cover">
-                    <div class="group-info">
-                        <a href="#" class="group-name">我们都是吐槽控</a>
-                        <p class="group-description">看不惯的,就要吐槽,不吐不快乐,吐吐更健康.</p>
-                    </div>
-                </li>
+                @foreach(Auth::user()->groups as $group)
+                    <li>
+                        <img src="image/award/a1.png" class="group-cover">
+                        <div class="group-info">
+                            <a href="/group/{{ $group->id }}" class="group-name">{{ $group->name }}</a>
+                            <p class="group-description">{{ $group->description }}</p>
+                        </div>
+                    </li>
+                @endforeach
             </ul>
 
             <div class="sc-nav">
@@ -93,8 +78,8 @@
         <img src="/image/navHeader.jpg">
         <ul>
             <li class="chosen"><a href="/individual" class="fa fa-home">首页</a></li>
-            <li><a href="activity.html" class="fa fa-futbol-o">活动</a></li>
-            <li><a href="group.html" class="fa fa-group">兴趣组</a></li>
+            <li><a href="/activity" class="fa fa-futbol-o">活动</a></li>
+            <li><a href="/group" class="fa fa-group">兴趣组</a></li>
             <li><a href="/individual/profile" class="fa fa-user">个人中心</a></li>
             <li><a href="/auth/logout" class="fa fa-sign-out">登出</a></li>
         </ul>
@@ -112,149 +97,14 @@
                     </nav>
                     <div class="rank today" id="rank-today">
                         <ol>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>1</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">詹姆斯哈登</p>
-                                    <p class="rank-score fa fa-heart">8.3km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>2</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">德怀特霍华德</p>
-                                    <p class="rank-score fa fa-heart">7.6km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>3</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">科比布莱恩特</p>
-                                    <p class="rank-score fa fa-heart">7.5km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>4</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">歪脖子</p>
-                                    <p class="rank-score fa fa-heart">7.2km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-
                         </ol>
                     </div>
                     <div class="rank toweek" id="rank-toweek">
                         <ol>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>1</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">科比布莱恩特</p>
-                                    <p class="rank-score fa fa-heart">47.5km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>2</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">詹姆斯哈登</p>
-                                    <p class="rank-score fa fa-heart">42.3km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>3</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">德怀特霍华德</p>
-                                    <p class="rank-score fa fa-heart">42.1km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>4</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">歪脖子</p>
-                                    <p class="rank-score fa fa-heart">39.2km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-
                         </ol>
                     </div>
                     <div class="rank tomonth" id="rank-tomonth">
                         <ol>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>1</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">德怀特霍华德</p>
-                                    <p class="rank-score fa fa-heart">227.6km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>2</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">詹姆斯哈登</p>
-                                    <p class="rank-score fa fa-heart">218.3km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>3</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">歪脖子</p>
-                                    <p class="rank-score fa fa-heart">217.2km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
-                            <li>
-                                <div class="rank-head">
-                                    <img src="/image/default_head.png">
-                                    <span>4</span>
-                                </div>
-                                <div class="rank-detail">
-                                    <p class="rank-name">科比布莱恩特</p>
-                                    <p class="rank-score fa fa-heart">212.5km</p>
-                                </div>
-                                <a href="#" class="to-rank-detail">详情</a>
-                            </li>
                         </ol>
                     </div>
                 </div>
@@ -292,11 +142,176 @@
                     </div>
                 </div>
 
-                <div class="module tmp">好友动态</div>
-                <div class="module tmp">好友动态</div>
-                <div class="module tmp">好友动态</div>
-                <div class="module tmp">好友动态</div>
-                <div class="module tmp">好友动态</div>
+                <ul class="friend-dynamic">
+                    <li>
+                        <div class="module f-single">
+                            <div class="f-single-head">
+                                <img src="image/default_head.png" alt="head" class="head">
+
+                                <div class="item-detail">
+                                    <a href="#" class="f-nick">小明</a>
+                                    <span class="item-time">10月19日 下午 12:06</span>
+                                </div>
+                            </div>
+                            <div class="f-item">
+                                <div class="f-info">
+                                    今天天气不错...
+                                </div>
+                                <div class="f-image-box">
+                                    <img src="image/tmp/ac1.jpeg" alt="">
+                                    <img src="image/tmp/ac2.jpeg" alt="">
+                                    <img src="image/tmp/ac3.jpeg" alt="">
+                                </div>
+                            </div>
+
+                            <div class="f-interact">
+                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
+                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
+                            </div>
+
+                            <div class="f-comments">
+                                <div class="my-comment">
+                                    <form action="">
+                                        <div class="comment-content">
+                                            <img src="image/default_head.png" alt="head" class="head">
+                                            <textarea name="" id="1" placeholder="写评论"></textarea>
+
+                                            <p>按 Enter 键发送</p>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                                <div class="comments-list">
+                                    <ul>
+                                        <li class="comments-item">
+                                            <div class="comments-content">
+                                                <a class="name-card" href="#">詹姆斯 </a>:是啊,一起打球不
+                                                <div class="comments-op">
+                                                    <span class="state"> 16:19</span>
+                                                    <a class="fa fa-comments" href="#"></a>
+                                                </div>
+                                            </div>
+                                            <div class="comments-list mod-comments-sub">
+                                                <ul>
+                                                    <li class="comments-item">
+                                                        <div class="comments-content">
+                                                            <a class="name-card" href="#">小明</a>回复
+                                                            <a class="name-card" href="#">詹姆斯</a>: 下次吧,我约了哈登
+                                                            <div class="comments-op">
+                                                                <span class="state"> 16:20</span>
+                                                                <a class="fa fa-comments" href="#"></a>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li class="comments-item">
+                                            <div class="comments-content">
+                                                <a class="name-card" href="#">哈登</a>:下午别忘了带球.
+                                                <div class="comments-op">
+                                                    <span class="state">16:19</span>
+                                                    <a class="fa fa-comments" href="#"></a>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="module f-single">
+                            <div class="f-single-head">
+                                <img src="image/default_head.png" alt="head" class="head">
+
+                                <div class="item-detail">
+                                    <a href="#" class="f-nick">小明</a>
+                                    <span class="item-time">10月19日 下午 12:06</span>
+                                </div>
+                            </div>
+                            <div class="f-item">
+                                <div class="f-info">
+                                    Had my buddy Taylor come sit with me and the team last night on the bench. Love my
+                                    fans! She gave me thank you card(thank you). Until next time.
+                                </div>
+                            </div>
+                            <div class="f-interact">
+                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
+                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="module f-single">
+                            <div class="f-single-head">
+                                <img src="image/default_head.png" alt="head" class="head">
+
+                                <div class="item-detail">
+                                    <a href="#" class="f-nick">小明</a>
+                                    <span class="item-time">10月19日 下午 12:06</span>
+                                </div>
+                            </div>
+                            <div class="f-item">
+                                <div class="f-info">
+                                    Had my buddy Taylor come sit with me and the team last night on the bench. Love my
+                                    fans! She gave me thank you card(thank you). Until next time.
+                                </div>
+                            </div>
+                            <div class="f-interact">
+                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
+                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="module f-single">
+                            <div class="f-single-head">
+                                <img src="image/default_head.png" alt="head" class="head">
+
+                                <div class="item-detail">
+                                    <a href="#" class="f-nick">小明</a>
+                                    <span class="item-time">10月19日 下午 12:06</span>
+                                </div>
+                            </div>
+                            <div class="f-item">
+                                <div class="f-info">
+                                    Had my buddy Taylor come sit with me and the team last night on the bench. Love my
+                                    fans! She gave me thank you card(thank you). Until next time.
+                                </div>
+                            </div>
+                            <div class="f-interact">
+                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
+                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="module f-single">
+                            <div class="f-single-head">
+                                <img src="image/default_head.png" alt="head" class="head">
+
+                                <div class="item-detail">
+                                    <a href="#" class="f-nick">小明</a>
+                                    <span class="item-time">10月19日 下午 12:06</span>
+                                </div>
+                            </div>
+                            <div class="f-item">
+                                <div class="f-info">
+                                    Had my buddy Taylor come sit with me and the team last night on the bench. Love my
+                                    fans! She gave me thank you card(thank you). Until next time.
+                                </div>
+                            </div>
+                            <div class="f-interact">
+                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
+                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -325,166 +340,258 @@
         });
     });
 </script>
-
+<script src="js/friendDynamic.js"></script>
 <script>
     $(function () {
-        $('.exercise-count-analyze #running-chart').highcharts({
-            chart: {
-                type: 'line',
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Aug']
-            },
-            yAxis: {
-                title: {
-                    text: '运动里程 (km)'
-                }
-            },
-            plotOptions: {
-                line: {
-                    dataLabels: {
-                        enabled: true
-                    },
-                    enableMouseTracking: false
-                }
-            },
-            series: [{
-                name: '运动数据',
-                data: [4.3, 2.6, 3.8, 5.1, 3.4, 3.2, 2.8]
-            }],
-            credits: {
-                enabled: false
-            },
-            legend: {
-                enabled: false
-            }
-        });
-    });
-
-
-    $(function () {
-
-        $(document).ready(function () {
-
-            // Build the chart
-            $('.exercise-count-analyze #sleeping-chart').highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: ''
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: false
-                        },
-                        showInLegend: true
+        $.get(
+            "/individual/health/statistics",
+            function(data)
+            {
+                var healthRecords = eval(data);
+                var sport = new Array();
+                var sleep = new Array(5);
+                sleep[0] = 0;
+                sleep[1] = 0;
+                sleep[2] = 0;
+                sleep[3] = 0;
+                sleep[4] = 0;
+                var blood_pressure_low = new Array();
+                var blood_pressure_high = new Array();
+                var heart_rate = new Array();
+                for (var i = 0; i < healthRecords.length; i++) {
+                    var health = healthRecords[i];
+                    sport[6-i] = Math.round(parseFloat(health.sport)*10)/10;
+                    var sleepHour = parseFloat(health.sleep)/3600;
+                    if (sleepHour>12) {
+                        sleep[0] += 1;
+                    } else if (sleepHour>10) {
+                        sleep[1] += 1;
+                    } else if (sleepHour>8) {
+                        sleep[2] += 1;
+                    } else if (sleepHour>6) {
+                        sleep[3] += 1;
+                    } else {
+                        sleep[4] += 1;
                     }
-                },
-                series: [{
-                    name: "Brands",
-                    colorByPoint: true,
-                    data: [
-                        {name: ">10h", y: 56.33},
-                        {name: "8-10h", y: 24.03},
-                        {name: "7-8h", y: 10.38},
-                        {name: "6-7h", y: 4.77},
-                        {name: "<6h", y: 1.11}]
-                }],
-                credits: {
-                    enabled: false
+                    blood_pressure_low[6-i] = Math.round(parseFloat(health.blood_pressure_low)*10)/10;
+                    blood_pressure_high[6-i] = Math.round(parseFloat(health.blood_pressure_high)*10)/10;
+                    heart_rate[6-i] = Math.round(parseFloat(health.heart_rate)*10)/10;
                 }
-            });
-        });
-    });
-
-    $(function () {
-        $('.exercise-count-analyze #blood-pressure-chart').highcharts({
-            chart: {
-                type: 'line',
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Aug']
-            },
-            yAxis: {
-                title: {
-                    text: '血压 (mmHg)'
+                for (var i = 0; i < sleep.length; i++) {
+                    sleep[i] = Math.round(sleep[i]*1.0/7*1000)/10;
                 }
-            },
-            plotOptions: {
-                line: {
-                    dataLabels: {
-                        enabled: true
+                $('.exercise-count-analyze #running-chart').highcharts({
+                    chart: {
+                        type: 'line',
                     },
-                    enableMouseTracking: false
-                }
-            },
-            series: [{
-                name: '收缩压',
-                data: [106, 104, 108, 108, 112, 105, 107]
-            },{
-                name: '伸张压',
-                data: [68, 72, 70, 72, 74, 69, 71]
-            }],
-            credits: {
-                enabled: false
-            }
-        });
-    });
-
-    $(function () {
-        $('.exercise-count-analyze #heart-rate-chart').highcharts({
-            chart: {
-                type: 'line',
-            },
-            title: {
-                text: ''
-            },
-            xAxis: {
-                categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Aug']
-            },
-            yAxis: {
-                title: {
-                    text: '心率 (次/分钟)'
-                }
-            },
-            plotOptions: {
-                line: {
-                    dataLabels: {
-                        enabled: true
+                    title: {
+                        text: ''
                     },
-                    enableMouseTracking: false
+                    xAxis: {
+                        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    },
+                    yAxis: {
+                        title: {
+                            text: '运动里程 (km)'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    series: [{
+                        name: '运动数据',
+                        data: sport
+                    }],
+                    credits: {
+                        enabled: false
+                    },
+                    legend: {
+                        enabled: false
+                    }
+                });
+                $('.exercise-count-analyze #sleeping-chart').highcharts({
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: ''
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        colorByPoint: true,
+                        data: [
+                            {name: ">12h", y: sleep[0]},
+                            {name: "10-12h", y: sleep[1]},
+                            {name: "8-10h", y: sleep[2]},
+                            {name: "6-8h", y: sleep[3]},
+                            {name: "<6h", y: sleep[4]}]
+                    }],
+                    credits: {
+                        enabled: false
+                    }
+                });
+                $('.exercise-count-analyze #blood-pressure-chart').highcharts({
+                    chart: {
+                        type: 'line',
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    },
+                    yAxis: {
+                        title: {
+                            text: '血压 (mmHg)'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    series: [{
+                        name: '收缩压',
+                        data: blood_pressure_high
+                    },{
+                        name: '伸张压',
+                        data: blood_pressure_low
+                    }],
+                    credits: {
+                        enabled: false
+                    }
+                });
+                $('.exercise-count-analyze #heart-rate-chart').highcharts({
+                    chart: {
+                        type: 'line',
+                    },
+                    title: {
+                        text: ''
+                    },
+                    xAxis: {
+                        categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    },
+                    yAxis: {
+                        title: {
+                            text: '心率 (次/分钟)'
+                        }
+                    },
+                    plotOptions: {
+                        line: {
+                            dataLabels: {
+                                enabled: true
+                            },
+                            enableMouseTracking: false
+                        }
+                    },
+                    series: [{
+                        name: '心率',
+                        data: heart_rate
+                    }],
+                    credits: {
+                        enabled: false
+                    },
+                    legend: {
+                        enabled: false
+                    }
+                });
+            },
+            'json'
+        ).error(
+            function()
+            {
+                alert("遇到了一点问题，不过没关系，忽略就好了嘛～");
+            }
+        );
+
+        $.get(
+            "/individual/health/rank",
+            function(data)
+            {
+                var rank = eval(data);
+                var today_rank = rank.today;
+                $('#rank-today ol').children().remove();
+                for (var i = 0; i < today_rank.length; i++) {
+                    $('#rank-today ol').append("\
+                            <li>\
+                                <div class=\"rank-head\">\
+                                    <img src=\"/image/default_head.png\">\
+                                    <span>" + (i+1) + "</span>\
+                                </div>\
+                                <div class=\"rank-detail\">\
+                                    <p class=\"rank-name\">" + today_rank[i].name + "</p>\
+                                    <p class=\"rank-score fa fa-heart\">" + Math.round(today_rank[i].sport*100)/100 + "km</p>\
+                                </div>\
+                                <a href=\"#\" class=\"to-rank-detail\">详情</a>\
+                            </li>\
+                        ");
+                }
+                var week_rank = rank.week;
+                $('#rank-toweek ol').children().remove();
+                for (var i = 0; i < week_rank.length; i++) {
+                    $('#rank-toweek ol').append("\
+                            <li>\
+                                <div class=\"rank-head\">\
+                                    <img src=\"/image/default_head.png\">\
+                                    <span>" + (i+1) + "</span>\
+                                </div>\
+                                <div class=\"rank-detail\">\
+                                    <p class=\"rank-name\">" + week_rank[i].name + "</p>\
+                                    <p class=\"rank-score fa fa-heart\">" + Math.round(week_rank[i].sport*100)/100 + "km</p>\
+                                </div>\
+                                <a href=\"#\" class=\"to-rank-detail\">详情</a>\
+                            </li>\
+                        ");
+                }
+                var month_rank = rank.month;
+                $('#rank-tomonth ol').children().remove();
+                for (var i = 0; i < month_rank.length; i++) {
+                    $('#rank-tomonth ol').append("\
+                            <li>\
+                                <div class=\"rank-head\">\
+                                    <img src=\"/image/default_head.png\">\
+                                    <span>" + (i+1) + "</span>\
+                                </div>\
+                                <div class=\"rank-detail\">\
+                                    <p class=\"rank-name\">" + month_rank[i].name + "</p>\
+                                    <p class=\"rank-score fa fa-heart\">" + Math.round(month_rank[i].sport*100)/100 + "km</p>\
+                                </div>\
+                                <a href=\"#\" class=\"to-rank-detail\">详情</a>\
+                            </li>\
+                        ");
                 }
             },
-            series: [{
-                name: '心率',
-                data: [64, 63, 65, 67, 68, 64, 65]
-            }],
-            credits: {
-                enabled: false
-            },
-            legend: {
-                enabled: false
+            'json'
+        ).error(
+            function()
+            {
+                alert("遇到了一点问题，不过没关系，忽略就好了嘛～");
             }
-        });
+        );
     });
-
-
 </script>
 
 </body>

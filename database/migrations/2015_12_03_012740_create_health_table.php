@@ -24,9 +24,6 @@ class CreateHealthTable extends Migration
             $table->double('blood_pressure_high');
             $table->double('heart_rate');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

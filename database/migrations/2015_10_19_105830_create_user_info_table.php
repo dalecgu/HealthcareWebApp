@@ -22,8 +22,6 @@ class CreateUserInfoTable extends Migration
             $table->string('description');
             $table->timestamps();
 
-            $table->foreign('id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
             $table->primary('id');
         });
     }

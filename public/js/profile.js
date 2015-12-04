@@ -221,6 +221,16 @@ $(function () {
         edit_value.toggle();
         return false;
     });
+
+    $(".pf").filter(".head-info").find(".pf-head-edit").click(function () {
+        if ($(this).text() == "编辑") {
+            $(this).text("保存");
+        }else {
+            $(this).text("编辑");
+        }
+        $(this).parent().siblings(".head").toggle();
+        $(this).parent().siblings(".upload").toggle();
+    });
 });
 
 function fire () {
@@ -423,3 +433,25 @@ $(function () {
     });
 });
 
+$(function () {
+    var $imgUploader = $(".upload #img-upload");
+    var $imgPreview = $(".upload .head-preview");
+    $imgUploader.bind("change", function () {
+        var file = this.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                var urlData = this.result;
+                var $new_item_image = $("<img src='" + urlData + "'>");
+                $imgPreview.empty();
+                $imgPreview.append($new_item_image);
+                if ($new_item_image.width > $new_item_image.height) {
+                    $new_item_image.width($new_item.width());
+                } else {
+                    $new_item_image.height($new_item.height());
+                }
+            }
+        }
+    });
+});

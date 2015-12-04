@@ -16,12 +16,6 @@ class CreateUserJoinActivitiesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('activity_id');
             $table->timestamps();
-            
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->foreign('activity_id')->references('id')->on('activities')
-                ->onUpdate('cascade')->onDelete('cascade');
-            $table->primary(array('user_id', 'activity_id'));
         });
     }
 

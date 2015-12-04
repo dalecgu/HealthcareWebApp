@@ -35,22 +35,12 @@
         </nav>
         <div class="panel" id="my-attention">
             <ul>
-                <li>
-                    <img src="/image/default_head.png">
-                    <a href="#">詹姆斯哈登</a>
-                </li>
-                <li>
-                    <img src="/image/default_head.png">
-                    <a href="#">德怀特霍华德</a>
-                </li>
-                <li>
-                    <img src="/image/default_head.png">
-                    <a href="#">科比布莱恩特</a>
-                </li>
-                <li>
-                    <img src="/image/default_head.png">
-                    <a href="#">歪脖子</a>
-                </li>
+                @foreach(Auth::user()->friends as $friend)
+                    <li>
+                        <img src="/image/default_head.png">
+                        <a href="#">{{ App\User::where('id', $friend->friend_id)->first()->info->nickname  }}</a>
+                    </li>
+                @endforeach
             </ul>
             <div class="sc-nav">
                 <form class="search">
@@ -63,20 +53,15 @@
         <div class="panel" id="my-interest-group">
 
             <ul>
-                <li>
-                    <img src="/image/award/a1.png" class="group-cover">
-                    <div class="group-info">
-                        <a href="#" class="group-name">神经病研究中心</a>
-                        <p class="group-description">这里是神经病聚集地,一起来疯.</p>
-                    </div>
-                </li>
-                <li>
-                    <img src="/image/award/a2.png" class="group-cover">
-                    <div class="group-info">
-                        <a href="#" class="group-name">我们都是吐槽控</a>
-                        <p class="group-description">看不惯的,就要吐槽,不吐不快乐,吐吐更健康.</p>
-                    </div>
-                </li>
+                @foreach(Auth::user()->groups as $group)
+                    <li>
+                        <img src="/image/award/a1.png" class="group-cover">
+                        <div class="group-info">
+                            <a href="/group/{{ $group->id }}" class="group-name">{{ $group->name }}</a>
+                            <p class="group-description">{{ $group->description }}</p>
+                        </div>
+                    </li>
+                @endforeach
             </ul>
 
             <div class="sc-nav">
@@ -93,8 +78,8 @@
         <img src="/image/navHeader.jpg">
         <ul>
             <li><a href="/individual" class="fa fa-home">首页</a></li>
-            <li><a href="activity.html" class="fa fa-futbol-o">活动</a></li>
-            <li><a href="group.html" class="fa fa-group">兴趣组</a></li>
+            <li><a href="/activity" class="fa fa-futbol-o">活动</a></li>
+            <li><a href="/group" class="fa fa-group">兴趣组</a></li>
             <li class="chosen"><a href="/individual/profile" class="fa fa-user">个人中心</a></li>
             <li><a href="/auth/logout" class="fa fa-sign-out">登出</a></li>
         </ul>
@@ -230,7 +215,29 @@
                 </div>
                 <div class="personal-profile">
                     <div class="module profile-check-panel">
-                        <div class="basic-profile-info">
+                        <div class="head-info pf">
+                            <div class="pf-head">
+                                <h3 class="pf-head-title">个人头像</h3>
+                                <a href="#" class="pf-head-edit">编辑</a>
+                            </div>
+                            <img src="/image/default_head.png" class="head">
+
+                            <div class="upload">
+                                <form action="">
+                                    <div class="upload-nav">
+                                        <a href="#" class="fa fa-camera">
+                                            <input type="file" id="img-upload">
+                                            <span>上传头像</span>
+                                        </a>
+                                    </div>
+                                    <div class="head-preview"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="module profile-check-panel">
+                        <div class="basic-profile-info pf">
                             {!! Form::open(['url' => '/individual/profile/basic', 'method' => 'put', 'name' => 'basic']) !!}
                                 <div class="pf-head">
                                     <h3 class="pf-head-title">基本资料</h3>
@@ -310,7 +317,7 @@
                     </div>
 
                     <div class="module profile-check-panel">
-                        <div class="contact-info">
+                        <div class="contact-info pf">
                             {!! Form::open(['url' => '/individual/profile/contact', 'method' => 'put', 'name' => 'contact']) !!}
                                 <div class="pf-head">
                                     <h3 class="pf-head-title">联系信息</h3>

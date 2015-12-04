@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reply extends Model
 {
     protected $table = 'replies';
-    protected $fillable = ['topic_id', 'user_id', 'content'];
+    protected $fillable = ['topic_id', 'user_id', 'quote', 'content'];
 
     public function topic()
     {
@@ -19,8 +19,8 @@ class Reply extends Model
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
 
-    public function comments()
+    public function agreed_by_users()
     {
-        return $this->hasMany('App\CommentReply', 'reply_id', 'id');
+        return $this->belongsToMany('App\User', 'agree_replies', 'reply_id', 'user_id');
     }
 }
