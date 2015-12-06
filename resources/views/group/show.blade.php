@@ -20,7 +20,7 @@
             </div>
             <div class="group center">
                 <a href="/individual/profile" class="sns-link">
-                    <img src="/image/default_head.png">
+                    <img src="/image/avatar/{{ Auth::user()->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                     <span>{{ Auth::user()->info->nickname }}</span>
                 </a>
                 <a href="/individual">主页</a>
@@ -36,7 +36,7 @@
             <ul>
                 @foreach(Auth::user()->friends as $friend)
                     <li>
-                        <img src="/image/default_head.png">
+                        <img src="/image/avatar/{{ $friend->friend_id }}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                         <a href="#">{{ App\User::where('id', $friend->friend_id)->first()->info->nickname  }}</a>
                     </li>
                 @endforeach
@@ -52,12 +52,12 @@
         <div class="panel" id="my-interest-group">
 
             <ul>
-                @foreach(Auth::user()->groups as $group)
-                    <li>
+                @foreach(Auth::user()->groups as $g)
+                    <li id="group{{$group->id}}">
                         <img src="/image/award/a1.png" class="group-cover">
                         <div class="group-info">
-                            <a href="/group/{{ $group->id }}" class="group-name">{{ $group->name }}</a>
-                            <p class="group-description">{{ $group->description }}</p>
+                            <a href="/group/{{ $group->id }}" class="group-name">{{ $g->name }}</a>
+                            <p class="group-description">{{ $g->description }}</p>
                         </div>
                     </li>
                 @endforeach
@@ -90,9 +90,9 @@
                     <img src="/image/award/a1.png" class="cover-image">
                     <h4 class="group-name">{{ $group->name }}</h4>
                     @if(Auth::user()->groups->where('id', $group->id)->count()==0)
-                        <a href="#" id="join-group" class="to-join btn">加入</a>
+                        <a href="#" id="join-group" class="to-join btn">关注</a>
                     @else
-                        <a href="#" id="exit-group" class="to-join btn">退出</a>
+                        <a href="#" id="exit-group" class="to-join btn">取消关注</a>
                     @endif
                 </div>
                 <div class="group-intro module">
@@ -115,19 +115,30 @@
                         <th>回复</th>
                         <th>最后回复</th>
                     </tr>
-                    @foreach($group->topics->sortByDesc(function($item) { return $item->replies->sortByDesc('created_at')->first()->created_at; }) as $topic)
+                    @foreach($group->topics->sortByDesc(function($item) {
+                        if ($item->replies->count()>0) {
+                            return $item->replies->sortByDesc('created_at')->first()->created_at;
+                        } else {
+                            return $item->created_at;
+                        }
+                    }) as $topic)
                         <tr>
                             <td><a href="/topic/{{$topic->id}}">{{ $topic->title }}</a></td>
                             <td>{{ $topic->user->info->nickname }}</td>
                             <td>{{ $topic->replies->count() }}</td>
-                            <td>{{ $topic->replies->sortByDesc('created_at')->first()->created_at }}</td>
+                            <td>
+                                @if($topic->replies->count()>0)
+                                    {{ $topic->replies->sortByDesc('created_at')->first()->created_at }}
+                                @else
+                                    {{ $topic->created_at }}
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </table>
                 <ol class="page-switcher">
                     <li class="fa fa-angle-left disable"></li>
                     <li class="selected">1</li>
-                    <li>2</li>
                     <li class="fa fa-angle-right"></li>
                 </ol>
             </div>
@@ -138,7 +149,9 @@
             <h4>发新帖</h4>
             <a href="#" class="fa fa-close cancel"></a>
         </header>
-        <form action="">
+        <form method="post" action="/topic">
+            {!! csrf_field() !!}
+            <input type="text" name="group_id" value="{{ $group->id }}" hidden>
             <p>
                 <label for="my-topic-title">标题</label><br/>
                 <input type="text" name="title" id="my-topic-title">
@@ -181,6 +194,17 @@
             },
             function(data)
             {
+                $(".group-header a").remove();
+                $(".group-header").append("<a href=\"#\" id=\"exit-group\" class=\"to-join btn\">取消关注</a>")
+                $("#my-interest-group ul").append("\
+                    <li id=\"group{{$group->id}}\">\
+                        <img src=\"/image/award/a1.png\" class=\"group-cover\">\
+                        <div class=\"group-info\">\
+                            <a href=\"/group/{{ $group->id }}\" class=\"group-name\">{{ $group->name }}</a>\
+                            <p class=\"group-description\">{{ $group->description }}</p>\
+                        </div>\
+                    </li>\
+                    ");
             },
             'json'
         ).error(
@@ -199,6 +223,9 @@
             },
             function(data)
             {
+                $(".group-header a").remove();
+                $(".group-header").append("<a href=\"#\" id=\"join-group\" class=\"to-join btn\">关注</a>");
+                $("#my-interest-group ul #group{{ $group->id }}").remove();
             },
             'json'
         ).error(

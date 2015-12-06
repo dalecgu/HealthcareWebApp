@@ -8,11 +8,13 @@ use App\Http\Controllers\Controller;
 
 use Redirect;
 use Input;
+use Validator;
 
 use App\User;
 use App\Role;
 use App\UserInfo;
 use App\IndividualInfo;
+use App\Activity;
 
 class AdminController extends Controller
 {
@@ -78,7 +80,7 @@ class AdminController extends Controller
         $individual_info->truename = '';
         $individual_info->gendor = '';
         $individual_info->age = 0;
-        $individual_info->birthday = '';
+        $individual_info->birthday = '2015/12/01';
         $individual_info->location = '';
         $individual_info->email = $individual->email;
         $individual_info->qq = '';
@@ -176,5 +178,29 @@ class AdminController extends Controller
         $user_info->save();
 
         return Redirect::to('/admin/doctor');
+    }
+
+    public function addActivity()
+    {
+        return view('admin.addActivity');
+    }
+
+    public function createActivity(Request $request)
+    {
+        $activity = new Activity();
+        $activity->title = $request->input('title');
+        $activity->description = $request->input('description');
+        $activity->begin_time = $request->input('begin_time');
+        $activity->end_time = $request->input('end_time');
+        $activity->save();
+
+        $file = Input::file('activity_file');
+        $input = array('image' => $file);
+        $rules = array('image' => 'image');
+        $validator = Validator::make($input, $rules);
+        $destinationPath = 'image/activity/';
+        $filename = strval($activity->id).'.jpg';
+        $file->move($destinationPath, $filename);
+        return Redirect::to('/admin/activity');
     }
 }

@@ -17,6 +17,7 @@ class CommentTableSeeder extends Seeder
 
         $comment->moment_id = 1;
         $comment->user_id = 5;
+        $comment->quote = 0;
         $comment->content = 'Comment On Your Moment';
 
         $comment->save();

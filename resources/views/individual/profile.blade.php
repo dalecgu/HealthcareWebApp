@@ -21,7 +21,7 @@
             </div>
             <div class="group center">
                 <a href="/individual/profile" class="sns-link">
-                    <img src="/image/default_head.png">
+                    <img src="/image/avatar/{{ Auth::user()->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                     <span>{{ Auth::user()->info->nickname }}</span>
                 </a>
                 <a href="/individual">主页</a>
@@ -37,7 +37,7 @@
             <ul>
                 @foreach(Auth::user()->friends as $friend)
                     <li>
-                        <img src="/image/default_head.png">
+                        <img src="/image/avatar/{{ $friend->friend_id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                         <a href="#">{{ App\User::where('id', $friend->friend_id)->first()->info->nickname  }}</a>
                     </li>
                 @endforeach
@@ -89,7 +89,7 @@
         <div class="main-wrapper clearfix">
             <div class="column right">
                 <div class="module profile-head-info">
-                    <img src="/image/default_head.png">
+                    <img src="/image/avatar/{{ Auth::user()->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
 
                     <h3>{{ Auth::user()->info->nickname }}<span>{{ Auth::user()->email }}</span></h3>
                 </div>
@@ -101,7 +101,7 @@
                     <div id="my-coach-panel" class="cd-panel">
                         @if(Auth::user()->coach && $coach_info = App\User::find(Auth::user()->coach->coach_id)->info)
                             <div class="normal">
-                                <img src="/image/default_head.png">
+                                <img src="/image/avatar/{{ $coach_info->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                                 <div class="intro">
                                         <h3>{{ $coach_info->nickname }}</h3>
 
@@ -125,7 +125,7 @@
                     <div id="my-doctor-panel" class="cd-panel">
                         @if(Auth::user()->doctor && $doctor_info = App\User::find(Auth::user()->doctor->doctor_id)->info)
                             <div class="normal">
-                                <img src="/image/default_head.png">
+                                <img src="/image/avatar/{{ $doctor_info->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                                 <div class="intro">
                                         <h3>{{ $doctor_info->nickname }}</h3>
 
@@ -170,26 +170,71 @@
                 </div>
             </div>
             <div class="column center">
-                <div class="my-release-panel">
-                    <div class="module tmp1">
-                        我的动态
-                    </div>
-                    <div class="module tmp1">
-                        我的动态
-                    </div>
-                    <div class="module tmp1">
-                        我的动态
-                    </div>
-                    <div class="module tmp1">
-                        我的动态
-                    </div>
-                    <div class="module tmp1">
-                        我的动态
-                    </div>
-                    <div class="module tmp1">
-                        我的动态
-                    </div>
-                </div>
+                <ul class="my-release-panel">
+                    @foreach(Auth::user()->moments->sortByDesc('created_at') as $moment)
+                        <li>
+                            <div class="module f-single">
+                                <div class="f-single-head">
+                                    <img src="/image/avatar/{{ $moment->user->id }}.jpg" onerror="javascript:this.src='/image/default_head.png';" class="head">
+
+                                    <div class="item-detail">
+                                        <a href="#" class="f-nick">{{ $moment->user->info->nickname }}</a>
+                                        <span class="item-time">{{ $moment->created_at }}</span>
+                                    </div>
+                                </div>
+                                <div class="f-item">
+                                    <div class="f-info">
+                                        {{ $moment->content }}
+                                    </div>
+                                    <div class="f-image-box">
+                                        @if(file_exists('../public/image/moment/'.$moment->id.'.jpg'))
+                                            <img src="/image/moment/{{ $moment->id }}.jpg">
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="f-interact">
+                                    <a href="#" class="fa fa-comments">评论<span>({{ $moment->comments->count() }})</span></a>
+                                    @if(App\AgreeMoment::where('user_id', Auth::user()->id)->where('moment_id', $moment->id)->count()==0)
+                                        <a href="#" class="fa fa-thumbs-up agree{{ $moment->id }}">赞<span>({{ $moment->agreed_by_users->count() }})</span></a>
+                                    @else
+                                        <a href="#" class="fa fa-thumbs-up agree{{ $moment->id }}">已赞<span>({{ $moment->agreed_by_users->count() }})</span></a>
+                                    @endif
+                                </div>
+
+                                <div class="f-comments">
+                                    <div class="my-comment">
+                                        {!! Form::open(['url' => '/moment/'.$moment->id.'/reply', 'method' => 'post', 'name' => 'comments', 'class' => 'comments']) !!}
+                                            <div class="comment-content">
+                                                <img src="/image/avatar/{{ Auth::user()->id }}.jpg" onerror="javascript:this.src='/image/default_head.png';" class="head">
+                                                <textarea name="content" placeholder="写评论"></textarea>
+
+                                                <p>按 Control + Enter 键发送</p>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                    <div class="comments-list">
+                                        <ul>
+                                            @foreach($moment->comments as $comment)
+                                                <li class="comments-item">
+                                                    <div class="comments-content">
+                                                        <a class="name-card" href="#">{{ $comment->user->info->nickname }}</a>:{{ $comment->content }}
+                                                        <div class="comments-op">
+                                                            <span class="state">{{ $comment->created_at->format('H:i') }}</span>
+                                                            <a class="fa fa-comments" href="#"></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
                 <div class="personal-cd">
                     <div class="module cd-chat-panel">
                         <div class="chat-header">
@@ -220,18 +265,18 @@
                                 <h3 class="pf-head-title">个人头像</h3>
                                 <a href="#" class="pf-head-edit">编辑</a>
                             </div>
-                            <img src="/image/default_head.png" class="head">
+                            <img src="/image/avatar/{{ Auth::user()->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';" class="head">
 
                             <div class="upload">
-                                <form action="">
+                                {!! Form::open(['url' => '/individual/profile/avatar', 'method' => 'post', 'id' => 'avatar', 'files' => true]) !!}
                                     <div class="upload-nav">
                                         <a href="#" class="fa fa-camera">
-                                            <input type="file" id="img-upload">
+                                            <input type="file" name="avatar_file" id="img-upload">
                                             <span>上传头像</span>
                                         </a>
                                     </div>
                                     <div class="head-preview"></div>
-                                </form>
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>
@@ -373,7 +418,7 @@
                 <ul class="cd-list">
                     @foreach(App\User::all()->filter(function($item) { return $item->hasRole('coach'); }) as $coach)
                         <li>
-                            <img src="/image/default_head.png">
+                            <img src="/image/avatar/{{ $coach->id }}.jpg" onerror="javascript:this.src='/image/default_head.png';">
 
                             <div class="cd-detail" id="cd-detail-{{ $coach->id }}">
                                 <a href="#" onclick="cdid={{ $coach->id }};" class="cd-name">{{ $coach->info->nickname }}</a>
@@ -400,7 +445,7 @@
         @foreach(App\User::all()->filter(function($item) { return $item->hasRole('coach'); }) as $coach) 
             <div class="cd-info-panel unvisible" id="cd-info-{{ $coach->id }}">
                 <a href="#" class="fa fa-arrow-left back"></a>
-                <img src="/image/default_head.png">
+                <img src="/image/avatar/{{ $coach->id }}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                 <div class="brief-info">
                     <p class="nickname">{{ $coach->info->nickname }}</p>
                     <p class="company fa fa-info-circle">{{ $coach->info->company }}</p>
@@ -452,7 +497,7 @@
                 <ul class="cd-list">
                     @foreach(App\User::all()->filter(function($item) { return $item->hasRole('doctor'); }) as $doctor)
                         <li>
-                            <img src="/image/default_head.png">
+                            <img src="/image/avatar/{{ $doctor->id }}.jpg" onerror="javascript:this.src='/image/default_head.png';">
 
                             <div class="cd-detail" id="cd-detail-{{ $doctor->id }}">
                                 <a href="#" onclick="cdid={{ $doctor->id }};" class="cd-name">{{ $doctor->info->nickname }}</a>
@@ -479,7 +524,7 @@
         @foreach(App\User::all()->filter(function($item) { return $item->hasRole('doctor'); }) as $doctor) 
             <div class="cd-info-panel unvisible" id="cd-info-{{ $doctor->id }}">
                 <a href="#" class="fa fa-arrow-left back"></a>
-                <img src="/image/default_head.png">
+                <img src="/image/avatar/{{ $doctor->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                 <div class="brief-info">
                     <p class="nickname">{{ $doctor->info->nickname }}</p>
                     <p class="company fa fa-info-circle">{{ $doctor->info->company }}</p>
@@ -520,6 +565,7 @@
     <div class="overlay"></div>
 </div>
 <script src="/js/jquery-2.1.4.min.js"></script>
+<script src="/js/jquery.form.min.js"></script>
 <script src="/js/basic.js"></script>
 <script>
     var year_now = {{ explode('/', Auth::user()->info->birthday)[0] }};
@@ -531,6 +577,7 @@
     var auth_user_id = {{ Auth::user()->id }};
     var type;
 </script>
+<script src="/js/friendDynamic.js"></script>
 <script src="/js/profile.js"></script>
 </body>
 </html>

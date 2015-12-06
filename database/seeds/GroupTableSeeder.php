@@ -16,7 +16,7 @@ class GroupTableSeeder extends Seeder
         $group = new Group();
 
         $group->name = 'Test Group';
-        $group->tag = 'test';
+        $group->tag = '其他';
         $group->description = 'just for test';
         $group->creator_id = 1;
 

@@ -51,4 +51,17 @@ class CoachDoctorController extends Controller
         $response = array('advices' => $advices);
         return Response::json($response);
     }
+
+    public function updateProfile(Request $request)
+    {
+        $user_info = Auth::user()->info;
+        $user_info->nickname = $request->input('nickname');
+        $user_info->gendor = $request->input('gendor');
+        $user_info->age = $request->input('age');
+        $user_info->location = $request->input('location');
+        $user_info->company = $request->input('company');
+        $user_info->description = $request->input('description');
+        $user_info->save();
+        return Response::json($user_info);
+    }
 }

@@ -60,6 +60,10 @@ Route::group(['prefix' => 'admin','namespace' => 'Admin'], function() {
     // 添加医生
     Route::get('doctor/add', 'AdminController@addDoctor');
     Route::post('doctor/add', 'AdminController@createDoctor');
+
+    // 添加活动
+    Route::get('activity/add', 'AdminController@addActivity');
+    Route::post('activity/add', 'AdminController@createActivity');
 });
 
 // 个人用户路由
@@ -71,6 +75,7 @@ Route::group(['prefix' => 'individual','namespace' => 'Individual'], function() 
         Route::get('/', 'ProfileController@profile');
 
         // 修改个人信息
+        Route::post('avatar', 'ProfileController@updateAvatarProfile');
         Route::put('basic', 'ProfileController@updateBasicProfile');
         Route::put('contact', 'ProfileController@updateContactProfile');
 
@@ -96,29 +101,46 @@ Route::group(['prefix' => 'individual','namespace' => 'Individual'], function() 
 Entrust::routeNeedsRole('activity*', 'individual');
 Route::group(['prefix' => 'activity','namespace' => 'Activity'], function() {
     Route::get('/', 'ActivityController@index');
+
+    Route::post('/{id}/join', 'ActivityController@joinActivity');
+    Route::post('/{id}/exit', 'ActivityController@exitActivity');
 });
 
 // 兴趣组路由
 Entrust::routeNeedsRole('group*', 'individual');
 Route::group(['prefix' => 'group','namespace' => 'Group'], function() {
     Route::get('/', 'GroupController@index');
+    Route::post('/', 'GroupController@store');
     Route::get('/{id}', 'GroupController@show');
 
-    Route::get('/{id}/join', 'GroupController@join');
-    Route::post('/{id}/join', 'GroupController@join');
-    Route::post('/{id}/exit', 'GroupController@exit');
+    Route::post('/{id}/join', 'GroupController@joinGroup');
+    Route::post('/{id}/exit', 'GroupController@exitGroup');
 });
 
 // 兴趣组主题路由
 Entrust::routeNeedsRole('topic*', 'individual');
 Route::group(['prefix' => 'topic','namespace' => 'Topic'], function() {
     Route::get('/{id}', 'TopicController@show');
+    Route::post('/', 'TopicController@store');
+
+    Route::post('/{id}/agree', 'TopicController@agree');
+    Route::post('/{id}/reply', 'TopicController@reply');
+});
+
+// 动态路由
+Entrust::routeNeedsRole('moment*', 'individual');
+Route::group(['prefix' => 'moment','namespace' => 'Moment'], function() {
+    Route::post('/', 'MomentController@store');
+    Route::post('/{id}/agree', 'MomentController@agree');
+    Route::post('/{id}/reply', 'MomentController@reply');
 });
 
 // 教练、医生路由
 Entrust::routeNeedsRole('coachdoctor*', array('coach', 'doctor'), null, false);
 Route::group(['prefix' => 'coachdoctor','namespace' => 'CoachDoctor'], function() {
     Route::get('/', 'CoachDoctorController@index');
+
+    Route::put('/profile', 'CoachDoctorController@updateProfile');
 
     Route::get('advice', 'CoachDoctorController@getAdvice');
     Route::post('advice', 'CoachDoctorController@postAdvice');

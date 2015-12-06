@@ -476,7 +476,7 @@ header nav .right.group a.active {
     top: 0;
     left: 0;
     right: 0;
-    /*display: none;*/
+    display: none;
 }
 
 /*--------------- Notification Window Style ------------------*/
@@ -549,7 +549,7 @@ header nav .right.group a.active {
     background-color: white;
     border-radius: 0 0 4px 4px;
     z-index: 999;
-    /*display: none;*/
+    display: none;
 }
 
 .basic-profile-info,

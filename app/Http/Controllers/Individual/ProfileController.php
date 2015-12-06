@@ -9,6 +9,8 @@ use App\Http\Controllers\Controller;
 
 use Auth;
 use Response;
+use Input;
+use Validator;
 
 use App\UserInfo;
 use App\UserCoach;
@@ -21,6 +23,24 @@ class ProfileController extends Controller
     public function profile()
     {
         return view('individual.profile');
+    }
+
+    public function updateAvatarProfile(Request $request)
+    {
+        $file = Input::file('avatar_file');
+        $input = array('image' => $file);
+        $rules = array('image' => 'image');
+        $validator = Validator::make($input, $rules);
+        if ($validator->fails()) {
+            return Response::json([
+                'success' => false,
+                'errors' => $validator->getMessageBag()->toArray()
+            ]);
+        }
+        $destinationPath = 'image/avatar/';
+        $filename = strval(Auth::user()->id).'.jpg';
+        $file->move($destinationPath, $filename);
+        return Response::json(array());
     }
 
     public function updateBasicProfile(Request $request)

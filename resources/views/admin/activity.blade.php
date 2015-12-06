@@ -21,7 +21,7 @@
                     <li><a href="/admin/user/add">添加用户</a></li>
                     <li><a href="/admin/coach/add">添加教练</a></li>
                     <li><a href="/admin/doctor/add">添加医生</a></li>
-                    <li><a href="#">添加活动</a></li>
+                    <li><a href="/admin/activity/add">添加活动</a></li>
                 </ul>
             </li>
         </ul>
@@ -41,75 +41,35 @@
             <div class="content">
                 <div class="title">
                     <h3>活动列表</h3>
-                    <a href="#">添加活动</a>
+                    <a href="/admin/activity/add">添加活动</a>
                 </div>
                 <ul class="activity-list">
-                    <li>
-                        <img src="/image/tmp/ac1.jpeg" class="activity-cover">
-                        <div class="activity-info">
-                            <a href="#" class="activity-name">跑酷济南</a>
-                            <p class="activity-time">10月01日 00:00-10月07日 23:59</p>
-                            <p class="activity-intro">怪兽来了</p>
-                        </div>
-                        <div class="activity-status">
-                            <p class="activity-progress">已结束</p>
-                            <p class="activity-member-num"><span>2376</span>人参与</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/image/tmp/ac2.jpeg" class="activity-cover">
-                        <div class="activity-info">
-                            <a href="#" class="activity-name">吴中环太湖公益行</a>
-                            <p class="activity-time">09月14日 10:15-09月30日 23:59</p>
-                            <p class="activity-intro">吴中环太湖公益行</p>
-                        </div>
-                        <div class="activity-status">
-                            <p class="activity-progress">已结束</p>
-                            <p class="activity-member-num"><span>2782</span>人参与</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/image/tmp/ac3.jpeg" class="activity-cover">
-                        <div class="activity-info">
-                            <a href="#" class="activity-name">吉利帝豪·向上马拉松</a>
-                            <p class="activity-time">07月27日 00:00-09月20日 00:00</p>
-                            <p class="activity-intro">吉利帝豪·向上马拉松</p>
-                        </div>
-                        <div class="activity-status">
-                            <p class="activity-progress">已结束</p>
-                            <p class="activity-member-num"><span>143</span>人参与</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/image/tmp/ac4.jpeg" class="activity-cover">
-                        <div class="activity-info">
-                            <a href="#" class="activity-name">跑酷南京</a>
-                            <p class="activity-time">09月14日 00:39-10月20日 11:59</p>
-                            <p class="activity-intro">一起来跑酷南京吧.</p>
-                        </div>
-                        <div class="activity-status">
-                            <p class="activity-progress">已结束</p>
-                            <p class="activity-member-num"><span>4038</span>人参与</p>
-                        </div>
-                    </li>
-                    <li>
-                        <img src="/image/tmp/ac5.jpeg" class="activity-cover">
-                        <div class="activity-info">
-                            <a href="#" class="activity-name">约跑·纽约</a>
-                            <p class="activity-time">08月20日 11:03-09月10日 23:59</p>
-                            <p class="activity-intro">约跑·纽约</p>
-                        </div>
-                        <div class="activity-status">
-                            <p class="activity-progress">已结束</p>
-                            <p class="activity-member-num"><span>4937</span>人参与</p>
-                        </div>
-                    </li>
-
+                    @foreach(App\Activity::all() as $activity)
+                        <li>
+                            <img src="/image/activity/{{$activity->id}}.jpg" onerror="javascript:this.src='/image/tmp/ac1.jpeg';" class="activity-cover">
+                            <div class="activity-info">
+                                <a href="#" class="activity-name">{{ $activity->title }}</a>
+                                <p class="activity-time">{{ $activity->begin_time }}-{{ $activity->end_time }}</p>
+                                <p class="activity-intro">{{ $activity->description }}</p>
+                            </div>
+                            <div class="activity-status">
+                                <p class="activity-progress">
+                                    @if(strcmp(Carbon\Carbon::now()->format('m月d日 H:i'), $activity->begin_time)<0)
+                                        未开始
+                                    @elseif(strcmp(Carbon\Carbon::now()->format('m月d日 H:i'), $activity->end_time)<0)
+                                        进行中
+                                    @else
+                                        已结束
+                                    @endif
+                                </p>
+                                <p class="activity-member-num"><span>{{ $activity->users->count() }}</span>人参与</p>
+                            </div>
+                        </li>
+                    @endforeach
                 </ul>
                 <ol class="page-switcher">
                     <li class="fa fa-angle-left disable"></li>
                     <li class="selected">1</li>
-                    <li>2</li>
                     <li class="fa fa-angle-right"></li>
                 </ol>
             </div>

@@ -94,7 +94,7 @@ class AuthController extends Controller
         $individual_info->truename = '';
         $individual_info->gendor = '';
         $individual_info->age = 0;
-        $individual_info->birthday = '';
+        $individual_info->birthday = '2015/12/01';
         $individual_info->location = '';
         $individual_info->email = $individual->email;
         $individual_info->qq = '';

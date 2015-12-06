@@ -21,7 +21,7 @@
                     <li><a href="/admin/user/add">添加用户</a></li>
                     <li><a href="/admin/coach/add">添加教练</a></li>
                     <li><a href="/admin/doctor/add">添加医生</a></li>
-                    <li><a href="#">添加活动</a></li>
+                    <li><a href="/admin/activity/add">添加活动</a></li>
                 </ul>
             </li>
         </ul>
@@ -74,7 +74,6 @@
                 <ol class="page-switcher">
                     <li class="fa fa-angle-left disable"></li>
                     <li class="selected">1</li>
-                    <li>2</li>
                     <li class="fa fa-angle-right"></li>
                 </ol>
             </div>

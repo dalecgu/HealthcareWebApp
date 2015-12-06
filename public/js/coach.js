@@ -206,7 +206,6 @@ $(function () {
     $("#birth-month").find("option[value='11']").attr("selected", "selected");
     $("#birth-date").find("option[value='21']").attr("selected", "selected");
 
-
     $(".pf-head-edit").click(function () {
         var value = $(this).parent().next().find(".pf-item-value"),
             edit_value = $(this).parent().next().find(".pf-item-editable");
@@ -215,6 +214,22 @@ $(function () {
         }
         else {
             $(this).text("编辑");
+            $.ajax({
+                url: document.profile.action,
+                type: 'put',
+                data: {
+                    '_token': document.profile._token.value,
+                    'nickname': document.profile.nickname.value,
+                    'age': document.profile.age.value,
+                    'location': document.profile.location.value,
+                    'gendor': document.profile.gendor.value,
+                    'company': document.profile.company.value,
+                    'description': document.profile.description.value
+                },
+                success: function(data) {
+                },
+                error: function(err) { alert("遇到了一点问题，不过没关系，忽略就好了嘛～"); }
+            });
 
             edit_value.not(".selects").each(function () {
                 $(this).attr("valid_val", $(this).val());

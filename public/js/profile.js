@@ -227,6 +227,31 @@ $(function () {
             $(this).text("保存");
         }else {
             $(this).text("编辑");
+            var options = {
+                success: showResponse,
+                error: showError,
+                dataType: 'json'
+            };
+            $('#avatar').ajaxSubmit(options);
+            function showResponse(data) {
+                location.reload();
+            }
+            function showError(err) {
+                alert("遇到了一点问题，不过没关系，忽略就好了嘛～");
+            }
+
+            edit_value.not(".selects").each(function () {
+                $(this).attr("valid_val", $(this).val());
+            });
+
+            edit_value.filter('.selects').each(function () {
+                var val = "",
+                    selects = $(this).find("select");
+                selects.each(function () {
+                    val += $(this).val() + "-";
+                });
+                $(this).attr("valid_val", val.substr(0, val.length - 1));
+            });
         }
         $(this).parent().siblings(".head").toggle();
         $(this).parent().siblings(".upload").toggle();

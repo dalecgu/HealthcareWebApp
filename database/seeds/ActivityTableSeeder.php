@@ -17,8 +17,8 @@ class ActivityTableSeeder extends Seeder
 
         $activity->title = '活动一';
         $activity->description = '一起来玩';
-        $activity->begin_time = '2015-10-2';
-        $activity->end_time = '2015-10-25';
+        $activity->begin_time = '10月02日 00:00';
+        $activity->end_time = '10月15日 23:59';
 
         $activity->save();
     }

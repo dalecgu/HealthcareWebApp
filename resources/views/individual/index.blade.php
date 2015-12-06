@@ -21,7 +21,7 @@
             </div>
             <div class="group center">
                 <a href="/individual/profile" class="sns-link">
-                    <img src="image/default_head.png">
+                    <img src="/image/avatar/{{ Auth::user()->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                     <span>{{ Auth::user()->info->nickname }}</span>
                 </a>
                 <a href="/individual">主页</a>
@@ -37,7 +37,7 @@
             <ul>
                 @foreach(Auth::user()->friends as $friend)
                     <li>
-                        <img src="image/default_head.png">
+                        <img src="/image/avatar/{{ $friend->friend_id }}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                         <a href="#">{{ App\User::where('id', $friend->friend_id)->first()->info->nickname  }}</a>
                     </li>
                 @endforeach
@@ -124,193 +124,96 @@
             </div>
 
             <div class="column center">
+                {!! Form::open(array('url'=>'/moment','method'=>'POST', 'files'=>true)) !!}
                 <div class="module release">
                     <div class="release-nav">
                         <a href="#" class="fa fa-pencil"><span class="tab-current"
                                                                onclick="return false;">更新状态</span></a>
                         <a href="#" class="fa fa-camera">
-                            <input type="file" id="img-upload" multiple="multiple">
+                            {!! Form::file('moment_file', array('id'=>"img-upload")) !!}
                             <span>添加照片</span>
                         </a>
                     </div>
                     <div class="release-content">
                         <div class="release-words">
-                            <textarea name="" id="" spellcheck="false" placeholder="说点什么吧..."></textarea>
+                            <textarea name="content" id="" spellcheck="false" placeholder="说点什么吧..."></textarea>
                             <input type="submit" value="发布">
                         </div>
                         <div class="img-preview"></div>
                     </div>
                 </div>
+                {!! Form::close() !!}
 
                 <ul class="friend-dynamic">
-                    <li>
-                        <div class="module f-single">
-                            <div class="f-single-head">
-                                <img src="image/default_head.png" alt="head" class="head">
+                    @if($moments=Auth::user()->moments)
+                        @foreach(Auth::user()->friends as $friend)
+                            @if($moments=$moments->merge(App\User::where('id', $friend->friend_id)->first()->moments))
+                            @endif
+                        @endforeach
+                    @endif
+                    @foreach($moments->sortByDesc('created_at') as $moment)
+                        <li>
+                            <div class="module f-single">
+                                <div class="f-single-head">
+                                    <img src="/image/avatar/{{ $moment->user->id }}.jpg" onerror="javascript:this.src='/image/default_head.png';" class="head">
 
-                                <div class="item-detail">
-                                    <a href="#" class="f-nick">小明</a>
-                                    <span class="item-time">10月19日 下午 12:06</span>
+                                    <div class="item-detail">
+                                        <a href="#" class="f-nick">{{ $moment->user->info->nickname }}</a>
+                                        <span class="item-time">{{ $moment->created_at }}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="f-item">
-                                <div class="f-info">
-                                    今天天气不错...
-                                </div>
-                                <div class="f-image-box">
-                                    <img src="image/tmp/ac1.jpeg" alt="">
-                                    <img src="image/tmp/ac2.jpeg" alt="">
-                                    <img src="image/tmp/ac3.jpeg" alt="">
-                                </div>
-                            </div>
-
-                            <div class="f-interact">
-                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
-                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
-                            </div>
-
-                            <div class="f-comments">
-                                <div class="my-comment">
-                                    <form action="">
-                                        <div class="comment-content">
-                                            <img src="image/default_head.png" alt="head" class="head">
-                                            <textarea name="" id="1" placeholder="写评论"></textarea>
-
-                                            <p>按 Enter 键发送</p>
-                                        </div>
-                                    </form>
+                                <div class="f-item">
+                                    <div class="f-info">
+                                        {{ $moment->content }}
+                                    </div>
+                                    <div class="f-image-box">
+                                        @if(file_exists('../public/image/moment/'.$moment->id.'.jpg'))
+                                            <img src="/image/moment/{{ $moment->id }}.jpg">
+                                        @endif
+                                    </div>
                                 </div>
 
+                                <div class="f-interact">
+                                    <a href="#" class="fa fa-comments">评论<span>({{ $moment->comments->count() }})</span></a>
+                                    @if(App\AgreeMoment::where('user_id', Auth::user()->id)->where('moment_id', $moment->id)->count()==0)
+                                        <a href="#" class="fa fa-thumbs-up agree{{ $moment->id }}">赞<span>({{ $moment->agreed_by_users->count() }})</span></a>
+                                    @else
+                                        <a href="#" class="fa fa-thumbs-up agree{{ $moment->id }}">已赞<span>({{ $moment->agreed_by_users->count() }})</span></a>
+                                    @endif
+                                </div>
 
-                                <div class="comments-list">
-                                    <ul>
-                                        <li class="comments-item">
-                                            <div class="comments-content">
-                                                <a class="name-card" href="#">詹姆斯 </a>:是啊,一起打球不
-                                                <div class="comments-op">
-                                                    <span class="state"> 16:19</span>
-                                                    <a class="fa fa-comments" href="#"></a>
-                                                </div>
+                                <div class="f-comments">
+                                    <div class="my-comment">
+                                        {!! Form::open(['url' => '/moment/'.$moment->id.'/reply', 'method' => 'post', 'name' => 'comments', 'class' => 'comments']) !!}
+                                            <div class="comment-content">
+                                                <img src="/image/avatar/{{ Auth::user()->id }}.jpg" onerror="javascript:this.src='/image/default_head.png';" class="head">
+                                                <textarea name="content" placeholder="写评论"></textarea>
+
+                                                <p>按 Control + Enter 键发送</p>
                                             </div>
-                                            <div class="comments-list mod-comments-sub">
-                                                <ul>
-                                                    <li class="comments-item">
-                                                        <div class="comments-content">
-                                                            <a class="name-card" href="#">小明</a>回复
-                                                            <a class="name-card" href="#">詹姆斯</a>: 下次吧,我约了哈登
-                                                            <div class="comments-op">
-                                                                <span class="state"> 16:20</span>
-                                                                <a class="fa fa-comments" href="#"></a>
-                                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                    <div class="comments-list">
+                                        <ul>
+                                            @foreach($moment->comments as $comment)
+                                                <li class="comments-item">
+                                                    <div class="comments-content">
+                                                        <a class="name-card" href="#">{{ $comment->user->info->nickname }}</a>:{{ $comment->content }}
+                                                        <div class="comments-op">
+                                                            <span class="state">{{ $comment->created_at->format('H:i') }}</span>
+                                                            <a class="fa fa-comments" href="#"></a>
                                                         </div>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-
-                                        <li class="comments-item">
-                                            <div class="comments-content">
-                                                <a class="name-card" href="#">哈登</a>:下午别忘了带球.
-                                                <div class="comments-op">
-                                                    <span class="state">16:19</span>
-                                                    <a class="fa fa-comments" href="#"></a>
-                                                </div>
-                                            </div>
-                                        </li>
-
-                                    </ul>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="module f-single">
-                            <div class="f-single-head">
-                                <img src="image/default_head.png" alt="head" class="head">
-
-                                <div class="item-detail">
-                                    <a href="#" class="f-nick">小明</a>
-                                    <span class="item-time">10月19日 下午 12:06</span>
-                                </div>
-                            </div>
-                            <div class="f-item">
-                                <div class="f-info">
-                                    Had my buddy Taylor come sit with me and the team last night on the bench. Love my
-                                    fans! She gave me thank you card(thank you). Until next time.
-                                </div>
-                            </div>
-                            <div class="f-interact">
-                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
-                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="module f-single">
-                            <div class="f-single-head">
-                                <img src="image/default_head.png" alt="head" class="head">
-
-                                <div class="item-detail">
-                                    <a href="#" class="f-nick">小明</a>
-                                    <span class="item-time">10月19日 下午 12:06</span>
-                                </div>
-                            </div>
-                            <div class="f-item">
-                                <div class="f-info">
-                                    Had my buddy Taylor come sit with me and the team last night on the bench. Love my
-                                    fans! She gave me thank you card(thank you). Until next time.
-                                </div>
-                            </div>
-                            <div class="f-interact">
-                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
-                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="module f-single">
-                            <div class="f-single-head">
-                                <img src="image/default_head.png" alt="head" class="head">
-
-                                <div class="item-detail">
-                                    <a href="#" class="f-nick">小明</a>
-                                    <span class="item-time">10月19日 下午 12:06</span>
-                                </div>
-                            </div>
-                            <div class="f-item">
-                                <div class="f-info">
-                                    Had my buddy Taylor come sit with me and the team last night on the bench. Love my
-                                    fans! She gave me thank you card(thank you). Until next time.
-                                </div>
-                            </div>
-                            <div class="f-interact">
-                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
-                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="module f-single">
-                            <div class="f-single-head">
-                                <img src="image/default_head.png" alt="head" class="head">
-
-                                <div class="item-detail">
-                                    <a href="#" class="f-nick">小明</a>
-                                    <span class="item-time">10月19日 下午 12:06</span>
-                                </div>
-                            </div>
-                            <div class="f-item">
-                                <div class="f-info">
-                                    Had my buddy Taylor come sit with me and the team last night on the bench. Love my
-                                    fans! She gave me thank you card(thank you). Until next time.
-                                </div>
-                            </div>
-                            <div class="f-interact">
-                                <a href="#" class="fa fa-comments">评论<span>(3)</span></a>
-                                <a href="#" class="fa fa-thumbs-up">赞<span>(4)</span></a>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
@@ -320,6 +223,7 @@
 <script src="/js/basic.js"></script>
 <script src="/js/highchart/highcharts.js"></script>
 <script>
+    var csrf_token = "{{ csrf_token() }}";
     $(function () {
         $(".exercise-ranking > nav > a").click(function () {
             $(this).siblings("a").removeClass("chosen");
@@ -538,7 +442,7 @@
                     $('#rank-today ol').append("\
                             <li>\
                                 <div class=\"rank-head\">\
-                                    <img src=\"/image/default_head.png\">\
+                                    <img src=\"/image/avatar/" + today_rank[i].user_id + ".jpg\" onerror=\"javascript:this.src='/image/default_head.png';\">\
                                     <span>" + (i+1) + "</span>\
                                 </div>\
                                 <div class=\"rank-detail\">\
@@ -555,7 +459,7 @@
                     $('#rank-toweek ol').append("\
                             <li>\
                                 <div class=\"rank-head\">\
-                                    <img src=\"/image/default_head.png\">\
+                                    <img src=\"/image/avatar/" + week_rank[i].user_id + ".jpg\" onerror=\"javascript:this.src='/image/default_head.png';\">\
                                     <span>" + (i+1) + "</span>\
                                 </div>\
                                 <div class=\"rank-detail\">\
@@ -572,7 +476,7 @@
                     $('#rank-tomonth ol').append("\
                             <li>\
                                 <div class=\"rank-head\">\
-                                    <img src=\"/image/default_head.png\">\
+                                    <img src=\"/image/avatar/" + month_rank[i].user_id + ".jpg\" onerror=\"javascript:this.src='/image/default_head.png';\">\
                                     <span>" + (i+1) + "</span>\
                                 </div>\
                                 <div class=\"rank-detail\">\

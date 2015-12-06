@@ -20,7 +20,7 @@
                     <li><a href="/admin/user/add">添加用户</a></li>
                     <li><a href="/admin/coach/add">添加教练</a></li>
                     <li><a href="/admin/doctor/add">添加医生</a></li>
-                    <li><a href="#">添加活动</a></li>
+                    <li><a href="/admin/activity/add">添加活动</a></li>
                 </ul>
             </li>
         </ul>

@@ -25,7 +25,7 @@
             </div>
         </nav>
         <div class="profile">
-            <img src="/image/default_head.png">
+            <img src="/image/avatar/{{ Auth::user()->id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
 
             <div class="basic-info">
 
@@ -34,7 +34,7 @@
                     <a href="#" class="fa fa-caret-down to-conf"></a>
                     <ul class="submenu">
                         <li><a href="#" class="to-edit-profile">修改资料</a></li>
-                        <li><a href="#">登出</a></li>
+                        <li><a href="/auth/logout">登出</a></li>
                     </ul>
                 </div>
                 <a href="#" class="user-email">{{ Auth::user()->email }}</a>
@@ -51,15 +51,15 @@
                             @if($selectedCustomer=$customer)
                             @endif
                             <li class="chosen" id="customer{{ $customer->user_id }}">
-                                <img src="/image/default_head.png">
+                                <img src="/image/avatar/{{ $customer->user_id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                                 <span class="name">{{ $customer->user->info->nickname }}</span>
                                 <span class="notification unvisible"></span>
                             </li>
                         @else
                             <li id="customer{{ $customer->user_id }}">
-                                <img src="/image/default_head.png">
+                                <img src="/image/avatar/{{ $customer->user_id}}.jpg" onerror="javascript:this.src='/image/default_head.png';">
                                 <span class="name">{{ $customer->user->info->nickname }}</span>
-                                <span class="notification">1</span>
+                                <span class="notification unvisible"></span>
                             </li>
                         @endif
                     @endforeach
@@ -120,6 +120,67 @@
             </li>
         </ul>
     </div>
+
+    <div class="profile-edit-window">
+        <div class="basic-profile-info">
+        {!! Form::open(['url' => '/coachdoctor/profile', 'method' => 'put', 'name' => 'profile']) !!}
+            <div class="pf-head">
+                <h3 class="pf-head-title">基本资料</h3>
+                <a href="#" class="pf-head-edit">编辑</a>
+            </div>
+            <ul class="pf-items">
+                <li>
+                    <h4 class="pf-item-title">昵称</h4>
+
+                    <p class="pf-item-value">{{ Auth::user()->info->nickname }}</p>
+                    <input type="text" name="nickname" value="{{ Auth::user()->info->nickname }}" class="pf-item-editable">
+                </li>
+                <li>
+                    <h4 class="pf-item-title">性别</h4>
+
+                    <p class="pf-item-value">{{Auth::user()->info->gendor}}</p>
+
+                    <div class="pf-item-editable selects">
+                        <select name="gendor" id="pf-sex">
+                            @if(Auth::user()->info->gendor=='男')
+                                <option value="男" selected="selected">男</option>
+                                <option value="女">女</option>
+                            @else
+                                <option value="男">男</option>
+                                <option value="女" selected="selected">女</option>
+                            @endif
+                        </select>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="pf-item-title">年龄</h4>
+
+                    <p class="pf-item-value">{{ Auth::user()->info->age }}</p>
+                    <input type="text" name="age" value="{{ Auth::user()->info->age }}" class="pf-item-editable">
+                </li>
+                <li>
+                    <h4 class="pf-item-title">所在地</h4>
+
+                    <p class="pf-item-value">{{ Auth::user()->info->location }}</p>
+                    <input type="text" name="location" value="{{ Auth::user()->info->location }}" class="pf-item-editable">
+                </li>
+                <li>
+                    <h4 class="pf-item-title">职务</h4>
+
+                    <p class="pf-item-value">{{ Auth::user()->info->company }}</p>
+                    <input type="text" name="company" value="{{ Auth::user()->info->company }}" class="pf-item-editable">
+                </li>
+                <li>
+                    <h4 class="pf-item-title">简介</h4>
+
+                    <p class="pf-item-value area">{{ Auth::user()->info->description }}</p>
+                    <textarea name="description" class="pf-item-editable">{{ Auth::user()->info->description }}</textarea>
+                </li>
+            </ul>
+            {!! Form::close() !!}
+        </div>
+    </div>
+    
     <div class="overlay"></div>
 </div>
 <script src="/js/jquery-2.1.4.min.js"></script>
