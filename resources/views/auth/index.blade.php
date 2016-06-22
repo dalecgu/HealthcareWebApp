@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Health</title>
-    <link rel="stylesheet" href="/css/login/screen.css">
+    <link rel="stylesheet" href="{{url('/css/login/screen.css')}}">
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 
 <div class="md-modal md-effect" id="modal">
     <div id="login">
-        <form method="post" action="/auth/login" autocomplete="on">
+        <form method="post" action="{{url('/auth/login')}}" autocomplete="on">
             {!! csrf_field() !!}
             <h1>Log in</h1>
             <p>
@@ -38,7 +38,7 @@
     </div>
 
     <div id="register">
-        <form method="post" action="/auth/register" autocomplete="on">
+        <form method="post" action="{{url('/auth/register')}}" autocomplete="on">
             {!! csrf_field() !!}
             <h1> Sign up </h1>
             <p>
@@ -91,7 +91,7 @@
     </div>
 </div>
 <div class="md-overlay"></div>
-<script src="/js/classie.js"></script>
-<script src="/js/modalEffects.js"></script>
+<script src="{{url('/js/classie.js')}}"></script>
+<script src="{{url('/js/modalEffects.js')}}"></script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>管理员</title>
-    <link rel="stylesheet" href="/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/css/adCommon.css">
+    <link rel="stylesheet" href="{{url('/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{url('/css/adCommon.css')}}">
 </head>
 <body>
 
@@ -17,10 +17,10 @@
             <li>
                 <a href="#" class="fa fa-plus">添加</a>
                 <ul class="cbp-tm-submenu">
-                    <li><a href="/admin/user/add">添加用户</a></li>
-                    <li><a href="/admin/coach/add">添加教练</a></li>
-                    <li><a href="/admin/doctor/add">添加医生</a></li>
-                    <li><a href="/admin/activity/add">添加活动</a></li>
+                    <li><a href="{{url('/admin/user/add')}}">添加用户</a></li>
+                    <li><a href="{{url('/admin/coach/add')}}">添加教练</a></li>
+                    <li><a href="{{url('/admin/doctor/add')}}">添加医生</a></li>
+                    <li><a href="{{url('/admin/activity/add')}}">添加活动</a></li>
                 </ul>
             </li>
         </ul>
@@ -30,16 +30,16 @@
             <aside class="nav">
                 <ul>
                     <li class="chosen"><a href="#" class="fa fa-users">用户</a></li>
-                    <li><a href="/admin/coach" class="fa fa-clipboard">教练</a></li>
-                    <li><a href="/admin/doctor" class="fa fa-hospital-o">医生</a></li>
-                    <li><a href="/admin/activity" class="fa fa-futbol-o">活动</a></li>
-                    <li><a href="/auth/logout" class="fa fa-sign-out">登出</a></li>
+                    <li><a href="{{url('/admin/coach')}}" class="fa fa-clipboard">教练</a></li>
+                    <li><a href="{{url('/admin/doctor')}}" class="fa fa-hospital-o">医生</a></li>
+                    <li><a href="{{url('/admin/activity')}}" class="fa fa-futbol-o">活动</a></li>
+                    <li><a href="{{url('/auth/logout')}}" class="fa fa-sign-out">登出</a></li>
                 </ul>
             </aside>
             <div class="content">
                 <div class="title">
                     <h3>用户列表</h3>
-                    <a href="/admin/user/add">添加用户</a>
+                    <a href="{{url('/admin/user/add')}}">添加用户</a>
                 </div>
                 <div class="user-list">
                     <table>
@@ -70,7 +70,7 @@
         </div>
     </div>
 </div>
-<script src="/js/jquery-2.1.4.min.js"></script>
-<script src="/js/adminBasic.js"></script>
+<script src="{{url('/js/jquery-2.1.4.min.js')}}"></script>
+<script src="{{url('/js/adminBasic.js')}}"></script>
 </body>
 </html>
